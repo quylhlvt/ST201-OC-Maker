@@ -4,22 +4,25 @@ import android.view.View
 import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseAdapter
+import com.oc.pony.ponymaker.create.data.model.ColorModel
 import com.oc.pony.ponymaker.create.databinding.ItemColorBinding
+import com.oc.pony.ponymaker.create.utils.onClickCustom
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 
-class ColorAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.pony.ponymaker.create.data.model.ColorModel, ItemColorBinding>(R.layout.item_color, DiffColor()) {
+class ColorAdapter : AbsBaseAdapter<ColorModel, ItemColorBinding>(R.layout.item_color, DiffColor()) {
     var onClick: ((Int) -> Unit)? = null
     var posColor = 0
     fun setPos(pos: Int) {
         posColor = pos
     }
 
-    class DiffColor : com.oc.pony.ponymaker.create.base.AbsBaseDiffCallBack<com.oc.pony.ponymaker.create.data.model.ColorModel>() {
-        override fun itemsTheSame(oldItem: com.oc.pony.ponymaker.create.data.model.ColorModel, newItem: com.oc.pony.ponymaker.create.data.model.ColorModel): Boolean {
+    class DiffColor : com.oc.pony.ponymaker.create.base.AbsBaseDiffCallBack<ColorModel>() {
+        override fun itemsTheSame(oldItem: ColorModel, newItem: ColorModel): Boolean {
             return oldItem.color == newItem.color
         }
 
-        override fun contentsTheSame(oldItem: com.oc.pony.ponymaker.create.data.model.ColorModel, newItem: com.oc.pony.ponymaker.create.data.model.ColorModel): Boolean {
+        override fun contentsTheSame(oldItem: ColorModel, newItem: ColorModel): Boolean {
             return oldItem.color != newItem.color
         }
 
@@ -28,7 +31,7 @@ class ColorAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.pon
     override fun bind(
         binding: ItemColorBinding,
         position: Int,
-        data: com.oc.pony.ponymaker.create.data.model.ColorModel,
+        data:ColorModel,
         holder: RecyclerView.ViewHolder
     ) {
 //        if(position == arr.size-1){
@@ -42,7 +45,7 @@ class ColorAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.pon
             binding.imv.visibility = View.GONE
         }
         binding.bg.setColorFilter("#${data.color}".toColorInt())
-        binding.bg.onSingleClick {
+        binding.bg.onClickCustom {
             onClick?.invoke(position)
         }
     }

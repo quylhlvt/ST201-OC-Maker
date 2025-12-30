@@ -83,7 +83,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="6dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_tick_2"
+                    android:src="@drawable/ic_select_language"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

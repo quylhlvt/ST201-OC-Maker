@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -101,42 +102,27 @@
             android:id="@+id/btnDice"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="7dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/imv_random"
-            app:layout_constraintBottom_toBottomOf="@id/llColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/llColor" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imvShowColor"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/imv_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rl" />
+            app:layout_constraintBottom_toTopOf="@id/llColor"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
             android:id="@+id/llColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="40dp"
+            android:background="#80EFCEBF"
             android:gravity="start"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/imvShowColor"
-            app:layout_constraintEnd_toStartOf="@id/btnDice"
-            app:layout_constraintStart_toEndOf="@id/imvShowColor"
-            app:layout_constraintTop_toTopOf="@id/imvShowColor">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rl"
+            app:layout_constraintStart_toStartOf="parent">
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_10_stroke_linear_color"
                 android:orientation="vertical"
-                app:cardCornerRadius="14dp"
                 app:strokeColor="#4C5AF2"
                 app:strokeWidth="0.5dp">
 
@@ -167,7 +153,6 @@
             android:id="@+id/llPart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/img_frame_bg_layer_custom"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/llNav"

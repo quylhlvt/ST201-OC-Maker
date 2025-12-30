@@ -10,9 +10,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.databinding.ItemMixBinding
+import com.oc.pony.ponymaker.create.utils.DataHelper
 import com.oc.pony.ponymaker.create.utils.hide
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 import com.oc.pony.ponymaker.create.utils.show
+import com.oc.pony.ponymaker.create.utils.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,13 +37,13 @@ class QuickAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.pon
         binding.shimmer.show()
         if (!arrBitmap.containsKey(position)){
             binding.shimmer.onSingleClick {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     binding.root.context,
                     R.string.wait_a_few_second
                 )
             }
             val coordSet = listArrayInt[position]
-            mergeImages(binding.root.context, "", data, arrListImageSortView[position % _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size], coordSet) { mergedBitmap ->
+            mergeImages(binding.root.context, "", data, arrListImageSortView[position % DataHelper.arrBlackCentered.size], coordSet) { mergedBitmap ->
                 binding.shimmer.stopShimmer()
                 binding.shimmer.hide()
                 binding.imvImage.setImageBitmap(mergedBitmap)

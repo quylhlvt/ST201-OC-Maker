@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale
 import com.oc.pony.ponymaker.create.utils.showSystemUI
 
 
@@ -24,7 +25,7 @@ abstract class AbsBaseFragment <V: ViewDataBinding, G: Activity>: androidx.fragm
         return if (mView != null){
             mView
         } else{
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale(requireContext())
+            setLocale(requireContext())
             binding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
             binding.lifecycleOwner = this
             mView = binding.root

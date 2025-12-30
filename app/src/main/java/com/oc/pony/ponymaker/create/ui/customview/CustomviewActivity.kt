@@ -9,14 +9,25 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isInvisible
 import com.bumptech.glide.Glide
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
+import com.oc.pony.ponymaker.create.data.model.AvatarModel
+import com.oc.pony.ponymaker.create.data.model.BodyPartModel
 import com.oc.pony.ponymaker.create.databinding.ActivityCustomizeBinding
+import com.oc.pony.ponymaker.create.dialog.DialogExit
+import com.oc.pony.ponymaker.create.ui.background.BackgroundActivity
+import com.oc.pony.ponymaker.create.utils.DataHelper
+import com.oc.pony.ponymaker.create.utils.fromList
 import com.oc.pony.ponymaker.create.utils.inhide
+import com.oc.pony.ponymaker.create.utils.isInternetAvailable
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.saveBitmap
 import com.oc.pony.ponymaker.create.utils.show
+import com.oc.pony.ponymaker.create.utils.showToast
+import com.oc.pony.ponymaker.create.utils.viewToBitmap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityCustomizeBinding>() {
+class CustomviewActivity : AbsBaseActivity<ActivityCustomizeBinding>() {
     val viewModel: CustomviewViewModel by viewModels()
     var arrShowColor = arrayListOf<Boolean>()
     var countRandom = 0
@@ -40,7 +51,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 
     override fun initView() {
         binding.btnSave.isSelected = true
-        if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size > 0) {
+        if (DataHelper.arrBlackCentered.size > 0) {
             binding.apply {
                 rcvPart.adapter = adapterPart
                 rcvPart.itemAnimator = null
@@ -54,7 +65,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 rcvNav.itemAnimator = null
 
                 getData1()
-                repeat(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.size) {
+                repeat(DataHelper.listImageSortView.size) {
                     listImg.add(AppCompatImageView(applicationContext).apply {
                         layoutParams = ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -68,11 +79,9 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 
                 adapterColor.setPos(arrInt[0][1])
                 if (listData[adapterNav.posNav].listPath.size == 1) {
-                    binding.llColor.visibility = View.INVISIBLE
-                    binding.imvShowColor.visibility = View.INVISIBLE
+                    binding.rcvColor.visibility = View.INVISIBLE
                 } else {
-                    binding.llColor.visibility = View.VISIBLE
-                    binding.imvShowColor.visibility = View.VISIBLE
+                    binding.rcvColor.visibility = View.VISIBLE
                     adapterColor.submitList(listData[adapterNav.posNav].listPath)
                 }
 
@@ -97,9 +106,9 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 adapterColor.setPos(arrInt[adapterNav.posNav][1])
                 adapterPart.submitList(listData[adapterNav.posNav].listPath[adapterColor.posColor].listPath)
                 if (listData[adapterNav.posNav].listPath.size == 1) {
-                    binding.llColor.visibility = View.INVISIBLE
+                    binding.rcvColor.visibility = View.INVISIBLE
                 } else {
-                    binding.llColor.visibility = View.VISIBLE
+                    binding.rcvColor.visibility = View.VISIBLE
                     adapterColor.submitList(listData[adapterNav.posNav].listPath)
                 }
             }
@@ -116,7 +125,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
         posNav: Int? = null,
         posColor: Int? = null
     ) {
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.forEachIndexed { _pos, _data ->
+        DataHelper.listImageSortView.forEachIndexed { _pos, _data ->
             if (_data == icon) {
                 handleVisibility(
                     listImg[_pos],
@@ -150,36 +159,36 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
         }
     }
 
-    var listData = arrayListOf<com.oc.pony.ponymaker.create.data.model.BodyPartModel>()
+    var listData = arrayListOf<BodyPartModel>()
 
     //0 - path, 1 - color
     var arrInt = arrayListOf<ArrayList<Int>>()
     var blackCentered = 0
     var arrIntHottrend: ArrayList<ArrayList<Int>>? = null
     private fun getData1() {
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.clear()
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage.clear()
+        DataHelper.listImageSortView.clear()
+        DataHelper.listImage.clear()
         blackCentered = intent.getIntExtra("data", 0)
         arrIntHottrend = intent.getSerializableExtra("arr") as? ArrayList<ArrayList<Int>>
         var checkFirst = true
-        repeat(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].bodyPart.size) {
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.add("")
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage.add("")
+        repeat(DataHelper.arrBlackCentered[blackCentered].bodyPart.size) {
+            DataHelper.listImageSortView.add("")
+            DataHelper.listImage.add("")
         }
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].bodyPart.forEach {
+        DataHelper.arrBlackCentered[blackCentered].bodyPart.forEach {
             val (x, y) = it.icon.substringBeforeLast("/").substringAfterLast("/").split("-")
                 .map { it.toInt() }
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView[x - 1] = it.icon
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage[y - 1] = it.icon
+            DataHelper.listImageSortView[x - 1] = it.icon
+            DataHelper.listImage[y - 1] = it.icon
         }
 
         //thu tu navi
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage.forEachIndexed { index, icon ->
-            var x = _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].bodyPart.indexOfFirst { it.icon == icon }
-            var y = _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.indexOf(icon)
+        DataHelper.listImage.forEachIndexed { index, icon ->
+            var x = DataHelper.arrBlackCentered[blackCentered].bodyPart.indexOfFirst { it.icon == icon }
+            var y = DataHelper.listImageSortView.indexOf(icon)
             if (x != -1) {
                 arrShowColor.add(true)
-                listData.add(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].bodyPart[x])
+                listData.add(DataHelper.arrBlackCentered[blackCentered].bodyPart[x])
                 if (checkFirst) {
                     checkFirst = false
 //                    arrIntHottrend thu tu view
@@ -203,7 +212,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
     var checkHide = false
     override fun initAction() {
         adapterColor.onClick = {
-            if (!_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].checkDataOnline || _root_ide_package_.com.oc.pony.ponymaker.create.utils.isInternetAvailable(
+            if (!DataHelper.arrBlackCentered[blackCentered].checkDataOnline || isInternetAvailable(
                     applicationContext
                 )
             ) {
@@ -216,7 +225,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 }
                 putImage(listData[adapterNav.posNav].icon, adapterPart.posPath)
             } else {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     applicationContext,
                     R.string.please_check_your_network_connection
                 )
@@ -224,7 +233,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 
         }
         adapterNav.onClick = {
-            if (!_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].checkDataOnline || _root_ide_package_.com.oc.pony.ponymaker.create.utils.isInternetAvailable(
+            if (!DataHelper.arrBlackCentered[blackCentered].checkDataOnline || isInternetAvailable(
                     applicationContext
                 )
             ) {
@@ -233,15 +242,13 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     adapterColor.setPos(arrInt[it][1])
 
                     if (listData[adapterNav.posNav].listPath.size == 1) {
-                        binding.llColor.visibility = View.INVISIBLE
-                        binding.imvShowColor.visibility = View.INVISIBLE
+                        binding.rcvColor.visibility = View.INVISIBLE
                     } else {
                         if (arrShowColor[adapterNav.posNav]) {
-                            binding.llColor.show()
+                            binding.rcvColor.show()
                         } else {
-                            binding.llColor.inhide()
+                            binding.rcvColor.inhide()
                         }
-                        binding.imvShowColor.visibility = View.VISIBLE
                         adapterColor.submitList(listData[it].listPath)
                         binding.root.postDelayed(
                             { binding.rcvColor.smoothScrollToPosition(arrInt[it][1]) },
@@ -260,7 +267,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     )
 
             } else {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     applicationContext,
                     R.string.please_check_your_network_connection
                 )
@@ -268,7 +275,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 
         }
         adapterPart.onClick = { it, type ->
-            if (!_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].checkDataOnline || _root_ide_package_.com.oc.pony.ponymaker.create.utils.isInternetAvailable(
+            if (!DataHelper.arrBlackCentered[blackCentered].checkDataOnline || isInternetAvailable(
                     applicationContext
                 )
             ) {
@@ -316,7 +323,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                                     arrInt[adapterNav.posNav][0] = 1
                                     arrInt[adapterNav.posNav][1] = adapterColor.posColor
                                     putImage(listData[adapterNav.posNav].icon, 1)
-                                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                                    showToast(
                                         applicationContext,
                                         R.string.the_layer_have_only_one_item
                                     )
@@ -334,29 +341,22 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     }
                 }
             } else {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     applicationContext,
                     R.string.please_check_your_network_connection
                 )
             }
         }
         binding.apply {
-            imvShowColor.onSingleClick {
-                arrShowColor[adapterNav.posNav] = !arrShowColor[adapterNav.posNav]
-                if (arrShowColor[adapterNav.posNav]) {
-                    llColor.show()
-                } else {
-                    llColor.inhide()
-                }
-            }
+           
             btnReset.onSingleClick {
 //                if(!arrBlackCentered[blackCentered].checkDataOnline || isInternetAvailable(applicationContext)){
-                var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogExit(
+                var dialog = DialogExit(
                     this@CustomviewActivity,
                     "reset"
                 )
                 dialog.onClick = {
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage.forEach {
+                        DataHelper.listImage.forEach {
                             putImage("0", 0, true)
                         }
                         arrInt.forEach { i ->
@@ -370,12 +370,10 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                         adapterColor.setPos(arrInt[adapterNav.posNav][1])
                         adapterPart.submitList(listData[adapterNav.posNav].listPath[adapterColor.posColor].listPath)
                         if (listData[adapterNav.posNav].listPath.size == 1) {
-                            binding.llColor.visibility = View.INVISIBLE
-                            binding.imvShowColor.visibility = View.INVISIBLE
+                            binding.rcvColor.visibility = View.INVISIBLE
                         } else {
                             if (!checkHide) {
-                                binding.llColor.visibility = View.VISIBLE
-                                binding.imvShowColor.visibility = View.VISIBLE
+                                binding.rcvColor.visibility = View.VISIBLE
                                 adapterColor.submitList(listData[adapterNav.posNav].listPath)
                             }
                         }
@@ -391,7 +389,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 //                }
             }
             imvBack.onSingleClick {
-                var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogExit(
+                var dialog = DialogExit(
                     this@CustomviewActivity,
                     "exit"
                 )
@@ -415,7 +413,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 }
             }
             btnDice.onSingleClick {
-                if (!_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].checkDataOnline || _root_ide_package_.com.oc.pony.ponymaker.create.utils.isInternetAvailable(
+                if (!DataHelper.arrBlackCentered[blackCentered].checkDataOnline || isInternetAvailable(
                         applicationContext
                     )
                 ) {
@@ -457,8 +455,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                         adapterColor.setPos(arrInt[adapterNav.posNav][1])
                         adapterPart.submitList(listData[adapterNav.posNav].listPath[adapterColor.posColor].listPath)
                         if (listData[adapterNav.posNav].listPath.size == 1) {
-                            binding.llColor.visibility = View.INVISIBLE
-                            binding.imvShowColor.visibility = View.INVISIBLE
+                            binding.rcvColor.visibility = View.INVISIBLE
                         } else {
                             if (!checkHide) {
 //                                if (arrShowColor[adapterNav.posNav]) {
@@ -467,21 +464,20 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
 //                                    binding.llColor.inhide()
 //                                }
                                 arrShowColor[adapterNav.posNav] = true
-                                binding.llColor.visibility = View.VISIBLE
-                                binding.imvShowColor.visibility = View.VISIBLE
+                                binding.rcvColor.visibility = View.VISIBLE
                                 adapterColor.submitList(listData[adapterNav.posNav].listPath)
                             }
 
                     }
                 } else {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                    showToast(
                         applicationContext,
                         R.string.please_check_your_network_connection
                     )
                 }
             }
             llLoading.onSingleClick {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     applicationContext,
                     R.string.please_wait_a_few_seconds_for_data_to_load
                 )
@@ -489,9 +485,9 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             btnSave.onSingleClick {
                 llLoading.visibility = View.VISIBLE
                 animationView.visibility = View.VISIBLE
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.saveBitmap(
+                saveBitmap(
                     this@CustomviewActivity,
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.viewToBitmap(rl),
+                    viewToBitmap(rl),
                     intent.getStringExtra("fileName") ?: "",
                     true
                 ) { it, path, pathOld ->
@@ -501,25 +497,25 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                         animationView.visibility = View.GONE
                         //lop layer
                         var x = arrayListOf<ArrayList<Int>>()
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImageSortView.forEachIndexed { _pos, icon ->
+                        DataHelper.listImageSortView.forEachIndexed { _pos, icon ->
                             var y =
-                                _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listImage.indexOf(
+                                DataHelper.listImage.indexOf(
                                     icon
                                 )
                             x.add(arrInt[y])
                         }
 
                         viewModel.addAvatar(
-                            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.AvatarModel(
+                            AvatarModel(
                                 path,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[blackCentered].avt,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.utils.fromList(x)
+                                DataHelper.arrBlackCentered[blackCentered].avt,
+                                fromList(x)
                             )
                         )
                         startActivity(
                             Intent(
                                 this@CustomviewActivity,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.BackgroundActivity::class.java
+                                BackgroundActivity::class.java
                             ).putExtra("path", path)
                         )
 
@@ -527,7 +523,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     } else {
                         llLoading.visibility = View.GONE
                         animationView.visibility = View.GONE
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                        showToast(
                             this@CustomviewActivity,
                             R.string.save_failed
                         )
@@ -543,7 +539,6 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                         if (arrShowColor[adapterNav.posNav]) {
                             binding.llColor.show()
                         }
-                        imvShowColor.show()
                     }
                     if (countRandom < 3) {
                         btnDice.show()
@@ -555,7 +550,6 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     btnRevert.inhide()
                     btnReset.inhide()
                     btnSave.inhide()
-                    imvShowColor.inhide()
                     llColor.inhide()
                     btnDice.inhide()
                     llPart.inhide()
@@ -568,7 +562,7 @@ class CustomviewActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
     }
 
     override fun onBackPressed() {
-        var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogExit(
+        var dialog = DialogExit(
             this@CustomviewActivity,
             "exit"
         )

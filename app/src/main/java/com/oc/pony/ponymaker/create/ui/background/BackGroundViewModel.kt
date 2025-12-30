@@ -5,6 +5,9 @@ import android.graphics.Bitmap
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.ViewModel
+import com.oc.pony.ponymaker.create.custom.DrawableDraw
+import com.oc.pony.ponymaker.create.data.model.SelectedModel
+import com.oc.pony.ponymaker.create.utils.DataHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.text.SimpleDateFormat
@@ -52,8 +55,8 @@ class BackGroundViewModel : ViewModel() {
     suspend fun loadDataDefault(context: Context) {
         backgroundImageList.clear()
         backgroundImageList.addAll(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBg.map {
-                _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+            DataHelper.arrBg.map {
+                SelectedModel(
                     path = it
                 )
             }
@@ -61,7 +64,7 @@ class BackGroundViewModel : ViewModel() {
 
         backgroundColorList.clear()
         backgroundColorList.addAll(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.getBackgroundColorDefault(
+            DataHelper.getBackgroundColorDefault(
                 context
             )
         )
@@ -69,8 +72,8 @@ class BackGroundViewModel : ViewModel() {
 
         stickerList.clear()
         stickerList.addAll(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrStiker.map {
-                _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+            DataHelper.arrStiker.map {
+               SelectedModel(
                     path = it
                 )
             })
@@ -78,19 +81,19 @@ class BackGroundViewModel : ViewModel() {
 
         speechList.clear()
         speechList.addAll(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBgText.map {
-                _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+            DataHelper.arrBgText.map {
+               SelectedModel(
                     path = it
                 )
             })
 
         textFontList.clear()
-        textFontList.addAll(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.getTextFontDefault())
+        textFontList.addAll(DataHelper.getTextFontDefault())
         textFontList.first().isSelected = true
 
         textColorList.clear()
         textColorList.addAll(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.getTextColorDefault(
+            DataHelper.getTextColorDefault(
                 context
             )
         )
@@ -142,7 +145,7 @@ class BackGroundViewModel : ViewModel() {
     }
     fun loadDrawableEmoji(context: Context, bitmap: Bitmap, isCharacter: Boolean = false, isText: Boolean = false): com.oc.pony.ponymaker.create.custom.DrawableDraw {
         val drawable = bitmap.toDrawable(context.resources)
-        val drawableEmoji = _root_ide_package_.com.oc.pony.ponymaker.create.custom.DrawableDraw(
+        val drawableEmoji = DrawableDraw(
             drawable,
             "${SimpleDateFormat("dd_MM_yyyy_hh_mm_ss").format(Date())}.png"
         )

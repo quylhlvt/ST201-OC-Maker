@@ -1,13 +1,19 @@
 package com.oc.pony.ponymaker.create.ui.quick_mix
 
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityQuickMixBinding
+import com.oc.pony.ponymaker.create.ui.customview.CustomviewActivity
+import com.oc.pony.ponymaker.create.utils.DataHelper
+import com.oc.pony.ponymaker.create.utils.isInternetAvailable
+import com.oc.pony.ponymaker.create.utils.newIntent
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class QuickMixActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityQuickMixBinding>() {
+class QuickMixActivity : AbsBaseActivity<ActivityQuickMixBinding>() {
     var sizeMix = 21
     var arrMix = arrayListOf<com.oc.pony.ponymaker.create.data.model.CustomModel>()
     @Inject
@@ -16,7 +22,7 @@ class QuickMixActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
     override fun getLayoutId(): Int = R.layout.activity_quick_mix
 
     override fun initView() {
-        if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBg.size == 0) {
+        if (DataHelper.arrBg.size == 0) {
 //            GlobalScope.launch(Dispatchers.IO) {
 //                getData(apiRepository)
 //            }
@@ -27,7 +33,7 @@ class QuickMixActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
             val resultList = mutableListOf<ArrayList<ArrayList<Int>>>()
             adapter.arrListImageSortView.clear()
             for (pos in 0..<sizeMix){
-                var mModel = _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[pos% _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size]
+                var mModel = DataHelper.arrBlackCentered[pos% DataHelper.arrBlackCentered.size]
                 var list = arrayListOf<String>()
                 repeat(mModel.bodyPart.size) {
                     list.add("")
@@ -79,32 +85,32 @@ class QuickMixActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
         binding.apply {
             imvBack.onSingleClick { finish() }
             adapter.onCLick = {
-                if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[it% _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size].checkDataOnline) {
-                    if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.isInternetAvailable(this@QuickMixActivity)) {
+                if (DataHelper.arrBlackCentered[it% DataHelper.arrBlackCentered.size].checkDataOnline) {
+                    if (isInternetAvailable(this@QuickMixActivity)) {
                             startActivity(
-                                _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                                newIntent(
                                     applicationContext,
-                                    _root_ide_package_.com.oc.pony.ponymaker.create.ui.customview.CustomviewActivity::class.java
+                                    CustomviewActivity::class.java
                                 )
-                                    .putExtra("data", it% _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size).putExtra(
+                                    .putExtra("data", it% DataHelper.arrBlackCentered.size).putExtra(
                                     "arr",
                                     adapter.listArrayInt[it]
                                 )
                             )
 
                     } else {
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                        showToast(
                             this@QuickMixActivity,
                             R.string.please_check_your_network_connection
                         )
                     }
                 } else {
                         startActivity(
-                            _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                            newIntent(
                                 applicationContext,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.ui.customview.CustomviewActivity::class.java
+                                CustomviewActivity::class.java
                             )
-                                .putExtra("data", it% _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.size).putExtra(
+                                .putExtra("data", it% DataHelper.arrBlackCentered.size).putExtra(
                                 "arr",
                                 adapter.listArrayInt[it]
                             )

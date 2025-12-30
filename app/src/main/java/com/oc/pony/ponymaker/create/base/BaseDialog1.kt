@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.viewbinding.ViewBinding
+import com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale
 
 abstract class BaseDialog1<VB : ViewBinding>(
     context: Context,
@@ -26,7 +27,7 @@ abstract class BaseDialog1<VB : ViewBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale(context)
+        setLocale(context)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, null, false)

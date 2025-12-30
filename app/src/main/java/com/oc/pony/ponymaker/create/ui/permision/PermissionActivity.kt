@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.graphics.toColorInt
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityPermissionBinding
 import com.oc.pony.ponymaker.create.ui.main.MainActivity
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_NOTIFICATION_PERMISSION
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityPermissionBinding>() {
+class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
 
     private val viewModel: PermissionViewModel by viewModels()
 

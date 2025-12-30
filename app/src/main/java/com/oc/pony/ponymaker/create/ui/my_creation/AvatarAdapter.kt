@@ -4,13 +4,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerDrawable
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseAdapter
 import com.oc.pony.ponymaker.create.databinding.ItemMyAvatarBinding
 import com.oc.pony.ponymaker.create.utils.hide
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.shimmer
 import com.oc.pony.ponymaker.create.utils.show
 
 class AvatarAdapter :
-    com.oc.pony.ponymaker.create.base.AbsBaseAdapter<String, ItemMyAvatarBinding>(R.layout.item_my_avatar, DiffCallBack()) {
+    AbsBaseAdapter<String, ItemMyAvatarBinding>(R.layout.item_my_avatar, DiffCallBack()) {
     var onClick: ((Int, String) -> Unit)? = null
     var arrCheckTick = arrayListOf<Int>()
     var checkLongClick = false
@@ -21,7 +23,7 @@ class AvatarAdapter :
         holder: RecyclerView.ViewHolder
     ) {
         val shimmerDrawable = ShimmerDrawable().apply {
-            setShimmer(_root_ide_package_.com.oc.pony.ponymaker.create.utils.shimmer)
+            setShimmer(shimmer)
         }
         Glide.with(binding.root).load(data).placeholder(shimmerDrawable)
            .into(binding.imvImage)
@@ -62,7 +64,6 @@ class AvatarAdapter :
         override fun itemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
-
         override fun contentsTheSame(
             oldItem: String,
             newItem: String

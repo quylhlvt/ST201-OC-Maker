@@ -4,13 +4,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerDrawable
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseAdapter
 import com.oc.pony.ponymaker.create.databinding.ItemMyDesignBinding
 import com.oc.pony.ponymaker.create.utils.hide
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.shimmer
 import com.oc.pony.ponymaker.create.utils.show
 
 class DesignAdapter :
-    com.oc.pony.ponymaker.create.base.AbsBaseAdapter<String, ItemMyDesignBinding>(R.layout.item_my_design, DiffCallBack()) {
+    AbsBaseAdapter<String, ItemMyDesignBinding>(R.layout.item_my_design, DiffCallBack()) {
     var onClick: ((Int, String) -> Unit)? = null
     var arrCheckTick = arrayListOf<Int>()
     var checkLongClick = false
@@ -21,7 +23,7 @@ class DesignAdapter :
         holder: RecyclerView.ViewHolder
     ) {
         val shimmerDrawable = ShimmerDrawable().apply {
-            setShimmer(_root_ide_package_.com.oc.pony.ponymaker.create.utils.shimmer)
+            setShimmer(shimmer)
         }
 
         Glide.with(binding.root).load(data).placeholder(shimmerDrawable).into(binding.imvImage)

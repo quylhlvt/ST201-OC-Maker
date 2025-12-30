@@ -1,6 +1,10 @@
 package com.oc.pony.ponymaker.create.module
 
 import android.content.Context
+import com.oc.pony.ponymaker.create.data.callapi.ApiHelper
+import com.oc.pony.ponymaker.create.data.repository.ApiRepository
+import com.oc.pony.ponymaker.create.data.repository.RoomRepository
+import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,22 +17,22 @@ import javax.inject.Singleton
 class ApplicationModule {
     @Singleton
     @Provides
-    fun providerSharedPreference(@ApplicationContext appContext: Context): com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils {
-        return _root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils.Companion.getInstance(appContext)
+    fun providerSharedPreference(@ApplicationContext appContext: Context):SharedPreferenceUtils {
+        return SharedPreferenceUtils.Companion.getInstance(appContext)
     }
     @Singleton
     @Provides
-    fun providerApi(@ApplicationContext context: Context): com.oc.pony.ponymaker.create.data.callapi.ApiHelper {
-        return _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.ApiHelper(context)
+    fun providerApi(@ApplicationContext context: Context): ApiHelper {
+        return ApiHelper(context)
     }
     @Singleton
     @Provides
-    fun providerApiRepository(apiHelper: com.oc.pony.ponymaker.create.data.callapi.ApiHelper): com.oc.pony.ponymaker.create.data.repository.ApiRepository {
-        return _root_ide_package_.com.oc.pony.ponymaker.create.data.repository.ApiRepository(apiHelper)
+    fun providerApiRepository(apiHelper: ApiHelper): ApiRepository {
+        return ApiRepository(apiHelper)
     }
     @Singleton
     @Provides
-    fun providerRepository(@ApplicationContext context: Context): com.oc.pony.ponymaker.create.data.repository.RoomRepository {
-        return _root_ide_package_.com.oc.pony.ponymaker.create.data.repository.RoomRepository(context)
+    fun providerRepository(@ApplicationContext context: Context): RoomRepository {
+        return RoomRepository(context)
     }
 }

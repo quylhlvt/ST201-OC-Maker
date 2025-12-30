@@ -6,13 +6,20 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityLanguageBinding
+import com.oc.pony.ponymaker.create.ui.main.MainActivity
+import com.oc.pony.ponymaker.create.ui.tutorial.TutorialActivity
+import com.oc.pony.ponymaker.create.utils.CONST
+import com.oc.pony.ponymaker.create.utils.DataHelper
+import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
+import com.oc.pony.ponymaker.create.utils.SystemUtils.setPreLanguage
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LanguageActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityLanguageBinding>() {
+class LanguageActivity : AbsBaseActivity<ActivityLanguageBinding>() {
     lateinit var adapter: LanguageAdapter
     var codeLang: String? = null
 
@@ -50,22 +57,22 @@ class LanguageActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setPreLanguage(applicationContext, codeLang)
+                setPreLanguage(applicationContext, codeLang)
                 providerSharedPreference.putStringValue("language", codeLang)
-                if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils.Companion.getInstance(applicationContext).getBooleanValue(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.LANGUAGE
+                if (SharedPreferenceUtils.Companion.getInstance(applicationContext).getBooleanValue(
+                        CONST.LANGUAGE
                     )) {
                     var intent = Intent(
                         applicationContext,
-                        _root_ide_package_.com.oc.pony.ponymaker.create.ui.main.MainActivity::class.java
+                        MainActivity::class.java
                     )
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                     finishAffinity()
                     startActivity(intent)
                 } else {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils.Companion.getInstance(applicationContext)
-                        .putBooleanValue(_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.LANGUAGE, true)
-                    var intent = Intent(applicationContext, _root_ide_package_.com.oc.pony.ponymaker.create.ui.tutorial.TutorialActivity::class.java)
+                    SharedPreferenceUtils.Companion.getInstance(applicationContext)
+                        .putBooleanValue(CONST.LANGUAGE, true)
+                    var intent = Intent(applicationContext, TutorialActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -78,31 +85,31 @@ class LanguageActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
         var i = 0
         lateinit var x: com.oc.pony.ponymaker.create.data.model.LanguageModel
         if (!codeLang.equals("")) {
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage.forEach {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage[i].active = false
+            DataHelper.listLanguage.forEach {
+                DataHelper.listLanguage[i].active = false
                 if (codeLang.equals(it.code)) {
-                    x = _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage[i]
+                    x = DataHelper.listLanguage[i]
                     x.active = true
                 }
                 i++
             }
 
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage.remove(x)
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage.add(0, x)
+            DataHelper.listLanguage.remove(x)
+            DataHelper.listLanguage.add(0, x)
         }
-        adapter.getData(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage)
+        adapter.getData(DataHelper.listLanguage)
         binding.rclLanguage.adapter = adapter
         val manager = GridLayoutManager(applicationContext, 1, RecyclerView.VERTICAL, false)
         binding.rclLanguage.layoutManager = manager
 
         adapter.onClick = {
-            codeLang = _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage[it].code
+            codeLang = DataHelper.listLanguage[it].code
         }
     }
 
     override fun onBackPressed() {
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.listLanguage[_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.positionLanguageOld].active = false
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.positionLanguageOld = 0
+        DataHelper.listLanguage[DataHelper.positionLanguageOld].active = false
+        DataHelper.positionLanguageOld = 0
         super.onBackPressed()
     }
 }

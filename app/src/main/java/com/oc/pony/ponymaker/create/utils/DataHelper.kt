@@ -7,6 +7,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.data.callapi.reponse.DataResponse
+import com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus
+import com.oc.pony.ponymaker.create.data.model.BodyPartModel
+import com.oc.pony.ponymaker.create.data.model.ColorModel
+import com.oc.pony.ponymaker.create.data.model.CustomModel
+import com.oc.pony.ponymaker.create.data.model.LanguageModel
+import com.oc.pony.ponymaker.create.data.model.SelectedModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -22,38 +29,38 @@ object DataHelper {
     var positionLanguageOld: Int = 0
     var check = true
 
-    var listLanguage = arrayListOf<com.oc.pony.ponymaker.create.data.model.LanguageModel>(
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+    var listLanguage = arrayListOf<LanguageModel>(
+       LanguageModel(
             "Spanish",
             "es",
             R.drawable.ic_flag_spanish
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "French",
             "fr",
             R.drawable.ic_flag_french
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "Hindi",
             "hi",
             R.drawable.ic_flag_hindi
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "English",
             "en",
             R.drawable.ic_flag_english
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "Portuguese",
             "pt",
             R.drawable.ic_flag_portugeese
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "German",
             "de",
             R.drawable.ic_flag_germani
         ),
-        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.LanguageModel(
+       LanguageModel(
             "Indonesian",
             "in",
             R.drawable.ic_flag_indo
@@ -93,13 +100,15 @@ object DataHelper {
         val job1 = async(Dispatchers.IO) {
             arrBlackCentered.clear()
             arrDataOnline.postValue(
-                _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.DataResponse.DataLoading(
-                    _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus.Loading))
+                DataResponse.DataLoading(
+                    LoadingStatus.Loading
+                )
+            )
             var assetManager = assets
             val data = assetManager.list("data")
             for (mData in data!!) {     //mData - cat1
                 val subFolders = assetManager.list("data/$mData") ?: continue
-                val catModel = _root_ide_package_.com.oc.pony.ponymaker.create.data.model.CustomModel(
+                val catModel = CustomModel(
                     "",
                     arrayListOf()
                 )
@@ -113,7 +122,7 @@ object DataHelper {
                         var icon = ASSET + subBodyPart.find { it.contains("nav.") }
                         val (x, y) = bodypart.split("-").map { it.toInt() }
                         var mbodyPathModel =
-                            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.BodyPartModel(
+                            BodyPartModel(
                                 icon, arrayListOf()
                             )
                         subBodyPart.forEach { mSubBodyPart ->
@@ -123,7 +132,7 @@ object DataHelper {
                                 if (itemColer == null || itemColer.isEmpty()) {
                                     if (mbodyPathModel.listPath.isEmpty()) {
                                         mbodyPathModel.listPath = arrayListOf(
-                                            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.ColorModel(
+                                            ColorModel(
                                                 "",
                                                 arrayListOf("${ASSET}$mSubBodyPart")
                                             )
@@ -133,7 +142,7 @@ object DataHelper {
                                     }
                                 } else {
                                     mbodyPathModel.listPath.add(
-                                        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.ColorModel(
+                                       ColorModel(
                                             mSubBodyPart.substringAfterLast("/"),
                                             itemColer.map { "${ASSET}$it" } as ArrayList<String>
                                         )
@@ -183,12 +192,11 @@ object DataHelper {
         awaitAll(job1, job2, job3, job4)
         callApi(apiRepository)
     }
-
     //    var arrDataOnline = MutableLiveData<CharacterResponse>()
     var arrDataOnline = MutableLiveData<com.oc.pony.ponymaker.create.data.callapi.reponse.DataResponse<com.oc.pony.ponymaker.create.data.model.CharacterResponse?>>()
     fun callApi(apiRepository: com.oc.pony.ponymaker.create.data.repository.ApiRepository) {
         GlobalScope.launch {
-            arrDataOnline.postValue(_root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.DataResponse.DataSuccess(apiRepository.getFigure()))
+            arrDataOnline.postValue(DataResponse.DataSuccess(apiRepository.getFigure()))
         }
     }
 
@@ -197,7 +205,7 @@ object DataHelper {
         var assetManager = assets
         var subFolders = assetManager.list("BG_Text")
         arrBgText = subFolders?.map { "${ASSET}BG_Text/$it" }!! as ArrayList<String>
-//        arrBgText.add(0, "")
+    //  arrBgText.add(0, "")
     }
 
     fun Context.getPathStiker() {
@@ -238,91 +246,91 @@ object DataHelper {
 
     fun getBackgroundColorDefault(context: Context): ArrayList<com.oc.pony.ponymaker.create.data.model.SelectedModel> {
         return arrayListOf(
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+            SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color.color_1
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._4ba6ac
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._dcd5ff
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._b7e9f8
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ffb4b9
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ebaef1
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._f5d0c8
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._fde6c4
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._d2ece9
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._eae5e1
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._e1faf7
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ffcdfe
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._fffed2
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._afcffe
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._cbe7db
@@ -333,93 +341,93 @@ object DataHelper {
 
     fun getTextFontDefault(): ArrayList<com.oc.pony.ponymaker.create.data.model.SelectedModel> {
         return arrayListOf(
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.roboto_regular),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.aldrich),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.brush_script),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.nova_script),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.carattere),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.digital_numbers),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.dynalight),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.edwardian_script_itc),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(color = R.font.vni_ongdo)
+           SelectedModel(color = R.font.roboto_regular),
+           SelectedModel(color = R.font.aldrich),
+           SelectedModel(color = R.font.brush_script),
+           SelectedModel(color = R.font.nova_script),
+           SelectedModel(color = R.font.carattere),
+           SelectedModel(color = R.font.digital_numbers),
+           SelectedModel(color = R.font.dynalight),
+           SelectedModel(color = R.font.edwardian_script_itc),
+           SelectedModel(color = R.font.vni_ongdo)
         )
     }
 
     fun getTextColorDefault(context: Context): ArrayList<com.oc.pony.ponymaker.create.data.model.SelectedModel> {
         return arrayListOf(
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color.color_9
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color.black
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ffa843
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._deea88
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._edbec2
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._d37728
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._98ffec
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ffa6a6
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._95ce9a
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._f4ff79
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._ff9efb
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._989cf3
                 )
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.SelectedModel(
+           SelectedModel(
                 color = ContextCompat.getColor(
                     context,
                     R.color._4ba6ac

@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.base.AbsBaseActivity
+import com.oc.pony.ponymaker.create.utils.showToast
 import kotlin.compareTo
 
 abstract class WhatsappSharingActivity<DB : ViewDataBinding> : AbsBaseActivity<DB>() {
@@ -43,7 +44,7 @@ abstract class WhatsappSharingActivity<DB : ViewDataBinding> : AbsBaseActivity<D
         try {
             startActivityForResult(intent, ADD_PACK_REQUEST)
         } catch (e: ActivityNotFoundException) {
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+            showToast(
                 this,
                 R.string.invalid_action_msg
             )

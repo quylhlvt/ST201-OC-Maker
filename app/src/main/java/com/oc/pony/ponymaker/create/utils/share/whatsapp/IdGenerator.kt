@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.core.content.FileProvider
+import com.oc.pony.ponymaker.create.utils.CONST
 
 import java.io.File
 import java.io.FileOutputStream
@@ -13,7 +14,7 @@ object IdGenerator {
 
     fun generateIdFromUrl(context: Context, url: String): String {
         val randomIdentifier = LocalStorageUtils.readData(context,
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.RANDOM_IDENTIFIER_FOR_ADDING_STICKER_TO_WHATSAPP
+            CONST.RANDOM_IDENTIFIER_FOR_ADDING_STICKER_TO_WHATSAPP
         )
         return getFolderNameFromUrl(url).lowercase() + randomIdentifier
     }

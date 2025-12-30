@@ -6,6 +6,7 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.databinding.ItemCategoryBinding
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.shimmer
 
 class CategoryAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.pony.ponymaker.create.data.model.CustomModel, ItemCategoryBinding>(
     R.layout.item_category, DiffCallBack()
@@ -18,7 +19,7 @@ class CategoryAdapter : com.oc.pony.ponymaker.create.base.AbsBaseAdapter<com.oc.
         holder: RecyclerView.ViewHolder
     ) {
         val shimmerDrawable = ShimmerDrawable().apply {
-            setShimmer(_root_ide_package_.com.oc.pony.ponymaker.create.utils.shimmer)
+            setShimmer(shimmer)
         }
         Glide.with(binding.root).load(data.avt).placeholder(shimmerDrawable).into(binding.imv)
         binding.imv.onSingleClick {

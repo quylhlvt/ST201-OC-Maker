@@ -3,6 +3,7 @@ package com.oc.pony.ponymaker.create.base
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale
 import com.oc.pony.ponymaker.create.utils.showSystemUI
 
 abstract class AbsBaseActivity<V : ViewDataBinding> : androidx.appcompat.app.AppCompatActivity() {
@@ -10,7 +11,7 @@ abstract class AbsBaseActivity<V : ViewDataBinding> : androidx.appcompat.app.App
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale(this)
+        setLocale(this)
         binding = DataBindingUtil.setContentView(this, getLayoutId())
         initView()
         initAction()
@@ -23,7 +24,7 @@ abstract class AbsBaseActivity<V : ViewDataBinding> : androidx.appcompat.app.App
 
     override fun onRestart() {
         super.onRestart()
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale(this)
+        setLocale(this)
     }
     abstract fun getLayoutId(): Int
     abstract fun initView()

@@ -3,7 +3,11 @@ package com.oc.pony.ponymaker.create.ui.splash
 import android.content.Intent
 import androidx.lifecycle.lifecycleScope
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivitySplashBinding
+import com.oc.pony.ponymaker.create.ui.language.LanguageActivity
+import com.oc.pony.ponymaker.create.ui.tutorial.TutorialActivity
+import com.oc.pony.ponymaker.create.utils.CONST
 import com.oc.pony.ponymaker.create.utils.DataHelper.getData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivitySplashBinding>() {
+class SplashActivity : AbsBaseActivity<ActivitySplashBinding>() {
     @Inject
     lateinit var apiRepository: com.oc.pony.ponymaker.create.data.repository.ApiRepository
 
@@ -37,11 +41,11 @@ class SplashActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activit
     }
 
     fun action() {
-        if (!sharedPreferenceUtils.getBooleanValue(_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.LANGUAGE)
+        if (!sharedPreferenceUtils.getBooleanValue(CONST.LANGUAGE)
         ) {
-            startActivity(Intent(this@SplashActivity, _root_ide_package_.com.oc.pony.ponymaker.create.ui.language.LanguageActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LanguageActivity::class.java))
         } else {
-            startActivity(Intent(this@SplashActivity, _root_ide_package_.com.oc.pony.ponymaker.create.ui.tutorial.TutorialActivity::class.java))
+            startActivity(Intent(this@SplashActivity, TutorialActivity::class.java))
         }
         finish()
     }

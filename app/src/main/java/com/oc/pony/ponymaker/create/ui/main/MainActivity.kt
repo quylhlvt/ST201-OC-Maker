@@ -7,18 +7,32 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.lifecycle.lifecycleScope
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
+import com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus
+import com.oc.pony.ponymaker.create.data.model.BodyPartModel
+import com.oc.pony.ponymaker.create.data.model.ColorModel
+import com.oc.pony.ponymaker.create.data.model.CustomModel
 import com.oc.pony.ponymaker.create.databinding.ActivityMainBinding
+import com.oc.pony.ponymaker.create.ui.category.CategoryActivity
+import com.oc.pony.ponymaker.create.ui.my_creation.MyCreationActivity
+import com.oc.pony.ponymaker.create.ui.quick_mix.QuickMixActivity
+import com.oc.pony.ponymaker.create.ui.setting.SettingActivity
+import com.oc.pony.ponymaker.create.utils.CONST
+import com.oc.pony.ponymaker.create.utils.DataHelper
 import com.oc.pony.ponymaker.create.utils.DataHelper.getData
+import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
 import com.oc.pony.ponymaker.create.utils.backPress
+import com.oc.pony.ponymaker.create.utils.newIntent
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 import com.oc.pony.ponymaker.create.utils.showInter
+import com.oc.pony.ponymaker.create.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityMainBinding>() {
+class MainActivity : AbsBaseActivity<ActivityMainBinding>() {
     @Inject
     lateinit var apiRepository: com.oc.pony.ponymaker.create.data.repository.ApiRepository
     var checkCallingDataOnline = false
@@ -31,7 +45,7 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
             if (!checkCallingDataOnline) {
                 if (networkInfo != null && networkInfo.isConnected) {
                     var checkDataOnline = false
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.forEach {
+                    DataHelper.arrBlackCentered.forEach {
                         if (it.checkDataOnline) {
                             checkDataOnline = true
                             return@forEach
@@ -43,7 +57,7 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                         }
                     }
                 } else {
-                    if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.isEmpty()) {
+                    if (DataHelper.arrBlackCentered.isEmpty()) {
                         lifecycleScope.launch(Dispatchers.IO) {
                             getData(apiRepository)
                         }
@@ -62,15 +76,15 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
         }
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkReceiver, filter)
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrDataOnline.observe(this) {
+        DataHelper.arrDataOnline.observe(this) {
             it?.let {
                 when (it.loadingStatus) {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus.Loading -> {
+                    LoadingStatus.Loading -> {
                         checkCallingDataOnline = true
                     }
 
-                    _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus.Success -> {
-                        if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.isNotEmpty() && !_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered[0].checkDataOnline) {
+                    LoadingStatus.Success -> {
+                        if (DataHelper.arrBlackCentered.isNotEmpty() && !DataHelper.arrBlackCentered[0].checkDataOnline) {
                             checkCallingDataOnline = false
                             val listA = (it as com.oc.pony.ponymaker.create.data.callapi.reponse.DataResponse.DataSuccess).body ?: return@observe
                             checkCallingDataOnline = true
@@ -88,20 +102,20 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                                         var c = arrayListOf<String>()
                                         if (coler == "") {
                                             for (i in 1..x10.quantity) {
-                                                c.add(_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_URL + "${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_CONNECT}/${x10.position}/${x10.parts}/${i}.png")
+                                                c.add(CONST.BASE_URL + "${CONST.BASE_CONNECT}/${x10.position}/${x10.parts}/${i}.png")
                                             }
                                             b.add(
-                                                _root_ide_package_.com.oc.pony.ponymaker.create.data.model.ColorModel(
+                                                ColorModel(
                                                     "#",
                                                     c
                                                 )
                                             )
                                         } else {
                                             for (i in 1..x10.quantity) {
-                                                c.add(_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_URL + "${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_CONNECT}/${x10.position}/${x10.parts}/${coler}/${i}.png")
+                                                c.add(CONST.BASE_URL + "${CONST.BASE_CONNECT}/${x10.position}/${x10.parts}/${coler}/${i}.png")
                                             }
                                             b.add(
-                                                _root_ide_package_.com.oc.pony.ponymaker.create.data.model.ColorModel(
+                                               ColorModel(
                                                     coler,
                                                     c
                                                 )
@@ -109,15 +123,15 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                                         }
                                     }
                                     a.add(
-                                        _root_ide_package_.com.oc.pony.ponymaker.create.data.model.BodyPartModel(
-                                            "${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_URL}${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_CONNECT}$key/${x10.parts}/nav.png",
+                                        BodyPartModel(
+                                            "${CONST.BASE_URL}${CONST.BASE_CONNECT}$key/${x10.parts}/nav.png",
                                             b
                                         )
                                     )
                                 }
                                 var dataModel =
-                                    _root_ide_package_.com.oc.pony.ponymaker.create.data.model.CustomModel(
-                                        "${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_URL}${_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.BASE_CONNECT}$key/avatar.png",
+                                    CustomModel(
+                                        "${CONST.BASE_URL}${CONST.BASE_CONNECT}$key/avatar.png",
                                         a,
                                         true
                                     )
@@ -139,13 +153,13 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                                         }
                                     }
                                 }
-                                _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.add(0, dataModel)
+                                DataHelper.arrBlackCentered.add(0, dataModel)
                             }
                         }
                         checkCallingDataOnline = false
                     }
 
-                    _root_ide_package_.com.oc.pony.ponymaker.create.data.callapi.reponse.LoadingStatus.Error -> {
+                    LoadingStatus.Error -> {
                         checkCallingDataOnline = false
                     }
 
@@ -162,13 +176,13 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
             btnCreate.onSingleClick {
                 if (!checkCallingDataOnline) {
                     startActivity(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                        newIntent(
                             applicationContext,
-                            _root_ide_package_.com.oc.pony.ponymaker.create.ui.category.CategoryActivity::class.java
+                            CategoryActivity::class.java
                         )
                     )
                 } else {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                    showToast(
                         applicationContext,
                         R.string.please_wait_a_few_seconds_for_data_to_load
                     )
@@ -178,14 +192,14 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                 if (!checkCallingDataOnline) {
                     showInter {
                         startActivity(
-                            _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                            newIntent(
                                 applicationContext,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.ui.quick_mix.QuickMixActivity::class.java
+                               QuickMixActivity::class.java
                             )
                         )
                     }
                 } else {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                    showToast(
                         applicationContext,
                         R.string.please_wait_a_few_seconds_for_data_to_load
                     )
@@ -195,14 +209,14 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
                 if (!checkCallingDataOnline) {
                     showInter {
                         startActivity(
-                            _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                            newIntent(
                                 applicationContext,
-                                _root_ide_package_.com.oc.pony.ponymaker.create.ui.my_creation.MyCreationActivity::class.java
+                                MyCreationActivity::class.java
                             )
                         )
                     }
                 } else {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                    showToast(
                         applicationContext, R.string.please_wait_a_few_seconds_for_data_to_load
                     )
                 }
@@ -210,9 +224,9 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
             }
             imvSetting.onSingleClick {
                 startActivity(
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                    newIntent(
                         applicationContext,
-                        _root_ide_package_.com.oc.pony.ponymaker.create.ui.setting.SettingActivity::class.java
+                        SettingActivity::class.java
                     )
                 )
             }
@@ -236,7 +250,7 @@ class MainActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityM
 
     override fun onBackPressed() {
         backPress(
-            _root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils(
+            SharedPreferenceUtils(
                 applicationContext
             )
         )

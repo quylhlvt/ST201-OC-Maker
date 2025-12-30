@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oc.pony.ponymaker.create.databinding.ItemLanguageBinding
+import com.oc.pony.ponymaker.create.utils.DataHelper
 
 class LanguageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onClick:((position : Int)->Unit)? = null
@@ -29,9 +30,9 @@ class LanguageAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     data[0].active = false
                     notifyItemChanged(0)
                 }
-                data[_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.positionLanguageOld].active = false
-                notifyItemChanged(_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.positionLanguageOld)
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.positionLanguageOld = position
+                data[DataHelper.positionLanguageOld].active = false
+                notifyItemChanged(DataHelper.positionLanguageOld)
+                DataHelper.positionLanguageOld = position
                 data[position].active = true
                 notifyItemChanged(position)
             }

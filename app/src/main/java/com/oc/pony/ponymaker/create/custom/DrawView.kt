@@ -1048,7 +1048,6 @@ open class DrawView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         if (abs(currentScale - lastCheckedScale) < 0.001f) {
             return lastScaleValid
         }
-
         lastCheckedScale = currentScale
         lastScaleValid = currentScale >= minAllowedScale
         return lastScaleValid

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.widget.Toast
 import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.databinding.DialogRateBinding
+import com.oc.pony.ponymaker.create.utils.RATE
+import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 
 
@@ -41,15 +43,15 @@ class DialogRate(context: Activity) : com.oc.pony.ponymaker.create.base.BaseDial
                 }
 
                 1, 2, 3 -> {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils.Companion.getInstance(context).putBooleanValue(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.RATE, true)
+                    SharedPreferenceUtils.Companion.getInstance(context).putBooleanValue(
+                        RATE, true)
                     dismiss()
                     onPress.later()
                 }
 
                 else -> {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils.Companion.getInstance(context).putBooleanValue(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.RATE, true)
+                    SharedPreferenceUtils.Companion.getInstance(context).putBooleanValue(
+                        RATE, true)
                     onPress.rating()
                 }
             }

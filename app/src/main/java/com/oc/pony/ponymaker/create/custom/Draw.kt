@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import androidx.annotation.IntDef
 import androidx.annotation.IntRange
+import com.oc.pony.ponymaker.create.utils.toRect
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -267,7 +268,7 @@ abstract class Draw {
         getMappedPoints(boundMap, boundPoints)
         tempMatrix.mapPoints(wrapperCorner, boundMap)
         tempMatrix.mapPoints(this.point, point)
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.toRect(trappedRect, wrapperCorner)
+        toRect(trappedRect, wrapperCorner)
         return trappedRect.contains(this.point[0], this.point[1])
     }
 

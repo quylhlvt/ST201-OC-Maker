@@ -18,6 +18,7 @@ import com.oc.pony.ponymaker.create.databinding.DialogSpeechBinding
 import com.oc.pony.ponymaker.create.utils.inhide
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 import com.oc.pony.ponymaker.create.utils.showKeyboard
+import com.oc.pony.ponymaker.create.utils.viewToBitmap
 
 class DialogSpeech(context: Activity, val path: String) : com.oc.pony.ponymaker.create.base.BaseDialog<DialogSpeechBinding>(context, false) {
     var onDoneClick: ((Bitmap?) -> Unit) = { }
@@ -84,7 +85,7 @@ class DialogSpeech(context: Activity, val path: String) : com.oc.pony.ponymaker.
             edtSpeech.clearFocus()
             edtSpeech.inhide()
             tvGetText.isVisible = !TextUtils.isEmpty(edtSpeech.text.toString().trim())
-            val bitmap = _root_ide_package_.com.oc.pony.ponymaker.create.utils.viewToBitmap(layoutBubble)
+            val bitmap = viewToBitmap(layoutBubble)
             onDoneClick.invoke(bitmap)
             dismiss()
         }

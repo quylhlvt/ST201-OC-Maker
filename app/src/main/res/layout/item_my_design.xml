@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/imv_per" />
+                    android:src="@drawable/img_per" />
 
                 <ImageView
                     android:id="@+id/btnDelete"

@@ -80,6 +80,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.dialog.DialogRate
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_NOTIFICATION_PERMISSION
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_STORAGE_PERMISSION
 import kotlinx.coroutines.CoroutineScope
@@ -134,8 +135,8 @@ fun newIntent(context: Context, cls: Class<*>): Intent {
 
 var unItem: (() -> Unit)? = null
 fun Activity.rateUs(i: Int) {
-    var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogRate(this)
-    dialog.init(object : com.oc.pony.ponymaker.create.dialog.DialogRate.OnPress {
+    var dialog = DialogRate(this)
+    dialog.init(object :DialogRate.OnPress {
         override fun rating() {
             if (i == 0) {
                 unItem?.invoke()
@@ -672,6 +673,15 @@ fun View.onSingleClick(action: () -> Unit) {
         if (System.currentTimeMillis() - lastClickTime >= 500) {
             action()
             lastClickTime = System.currentTimeMillis()
+        }
+    }
+}
+var lastClickTime2 = 0L
+fun View.onClickCustom(action: () -> Unit) {
+    this.setOnClickListener {
+        if (System.currentTimeMillis() - lastClickTime2 >= 100) {
+            action()
+            lastClickTime2 = System.currentTimeMillis()
         }
     }
 }

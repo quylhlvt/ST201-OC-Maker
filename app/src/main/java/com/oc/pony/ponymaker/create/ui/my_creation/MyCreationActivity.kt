@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -24,10 +25,14 @@ import com.oc.pony.ponymaker.create.dialog.CreateNameDialog
 import com.oc.pony.ponymaker.create.dialog.DialogExit
 import com.oc.pony.ponymaker.create.ui.customview.CustomviewActivity
 import com.oc.pony.ponymaker.create.ui.main.MainActivity
+import com.oc.pony.ponymaker.create.ui.permision.PermissionViewModel
 import com.oc.pony.ponymaker.create.ui.view.ViewActivity
+import com.oc.pony.ponymaker.create.utils.CONST
 import com.oc.pony.ponymaker.create.utils.CONST.NAME_SAVE_FILE
+import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_NOTIFICATION_PERMISSION
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_STORAGE_PERMISSION
 import com.oc.pony.ponymaker.create.utils.DataHelper
+import com.oc.pony.ponymaker.create.utils.PermissionHelper.checkPermissions
 import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
 import com.oc.pony.ponymaker.create.utils.checkPermision
 import com.oc.pony.ponymaker.create.utils.checkUsePermision
@@ -44,6 +49,7 @@ import com.oc.pony.ponymaker.create.utils.share.whatsapp.StickerPack
 import com.oc.pony.ponymaker.create.utils.share.whatsapp.WhatsappSharingActivity
 import com.oc.pony.ponymaker.create.utils.shareListFiles
 import com.oc.pony.ponymaker.create.utils.show
+import com.oc.pony.ponymaker.create.utils.showDialogNotifiListener
 import com.oc.pony.ponymaker.create.utils.showToast
 import com.oc.pony.ponymaker.create.utils.toList
 
@@ -56,7 +62,7 @@ import javax.inject.Inject
 class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() {
     val viewModel: com.oc.pony.ponymaker.create.ui.customview.CustomviewViewModel by viewModels()
     var checkAvatar = true
-
+    private val permissionViewModel: PermissionViewModel by viewModels()
     @Inject
     lateinit var sharedPreference: SharedPreferenceUtils
     var arrPathAvatar = arrayListOf<String>()
@@ -387,22 +393,11 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                     )
                 )
             }
-            btnDownload.onClick {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
-                    !checkPermision(this@MyCreationActivity)
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@MyCreationActivity,
-                        checkUsePermision(),
-                        REQUEST_STORAGE_PERMISSION
-                    )
-                } else {
+            btnDownload.onClick {btnDownload.onClick {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     if (checkAvatar) {
                         if (adapterAvatar.arrCheckTick.isEmpty()) {
-                            showToast(
-                                this@MyCreationActivity,
-                                R.string.you_have_not_selected_anything_yet
-                            )
+                            showToast(this@MyCreationActivity, R.string.you_have_not_selected_anything_yet)
                         } else {
                             adapterAvatar.arrCheckTick.forEach {
                                 saveFileToExternalStorage(
@@ -411,10 +406,7 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                                     ""
                                 ) { check, path ->
                                     if (check) {
-                                        scanMediaFile(
-                                            this@MyCreationActivity,
-                                            File(path)
-                                        )
+                                        scanMediaFile(this@MyCreationActivity, File(path))
                                     }
                                 }
                             }
@@ -427,10 +419,7 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                         }
                     } else {
                         if (adapterDesign.arrCheckTick.isEmpty()) {
-                            showToast(
-                                this@MyCreationActivity,
-                                R.string.you_have_not_selected_anything_yet
-                            )
+                            showToast(this@MyCreationActivity, R.string.you_have_not_selected_anything_yet)
                         } else {
                             adapterDesign.arrCheckTick.forEach {
                                 saveFileToExternalStorage(
@@ -439,10 +428,7 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                                     ""
                                 ) { check, path ->
                                     if (check) {
-                                        scanMediaFile(
-                                            this@MyCreationActivity,
-                                            File(path)
-                                        )
+                                        scanMediaFile(this@MyCreationActivity, File(path))
                                     }
                                 }
                             }
@@ -454,7 +440,10 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                             hideLongClick()
                         }
                     }
+                } else {
+                    handlePermissionRequest(isStorage = true)
                 }
+            }
             }
 
             btnShareAll.onClick {
@@ -612,18 +601,6 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requesPermission(requestCode)) {
-            REQUEST_STORAGE_PERMISSION -> {
-
-            }
-        }
-    }
     private fun handleTelegram() {
         val listPath =
             adapterAvatar.arrCheckTick.map { arrPathAvatar[it] }as  ArrayList
@@ -821,6 +798,72 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
         )
         addPackIfNotAlreadyAdded(stickerPack)
         onResult(stickerPack)
+    }
+    private fun handlePermissionRequest(isStorage: Boolean) {
+        val permissions = if (isStorage) {
+            permissionViewModel.getStoragePermissions()
+        } else {
+            permissionViewModel.getNotificationPermissions()
+        }
+        // Kiểm tra đã có permission chưa
+        if (checkPermissions(permissions, this@MyCreationActivity)) {
+            performDownload()
+            return
+        }
+        // Kiểm tra nếu đã từ chối nhiều lần → gợi ý vào Settings
+        if (permissionViewModel.needGoToSettings(sharedPreference, isStorage)) {
+            val dialogRes = if (isStorage) R.string.reques_storage else R.string.content_dialog_notification
+            showDialogNotifiListener(dialogRes)
+            return
+        }
+
+        // Request permission bình thường
+        val requestCode = if (isStorage) REQUEST_STORAGE_PERMISSION else CONST.REQUEST_NOTIFICATION_PERMISSION
+        ActivityCompat.requestPermissions(this, permissions, requestCode)
+    }
+
+    private fun performDownload() {
+        adapterAvatar.arrCheckTick.forEach {
+            saveFileToExternalStorage(
+                this@MyCreationActivity,
+                arrPathAvatar[it],
+                ""
+            ) { check, path ->
+                if (check) {
+                    scanMediaFile(
+                        this@MyCreationActivity,
+                        File(path)
+                    )
+                }
+            }
+        }
+        Toast.makeText(
+            this@MyCreationActivity,
+            getString(R.string.download_successfully) + " " + NAME_SAVE_FILE,
+            Toast.LENGTH_SHORT
+        ).show()
+        hideLongClick()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        val isGranted = grantResults.isNotEmpty() &&
+                grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+
+        when (requestCode) {
+            REQUEST_STORAGE_PERMISSION -> {
+                permissionViewModel.updateStorageGranted(sharedPreference, isGranted)
+
+                if (isGranted) {
+                    performDownload()
+                }
+            }
+        }
     }
 
 }

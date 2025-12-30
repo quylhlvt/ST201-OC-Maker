@@ -10,6 +10,7 @@ import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale
 import com.oc.pony.ponymaker.create.utils.showSystemUI
 
 abstract class BaseDialog <DB : ViewDataBinding>(var context : Activity, var canAble: Boolean) :
@@ -32,7 +33,7 @@ abstract class BaseDialog <DB : ViewDataBinding>(var context : Activity, var can
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        _root_ide_package_.com.oc.pony.ponymaker.create.utils.SystemUtils.setLocale(context)
+        setLocale(context)
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), getContentView(), null, false)

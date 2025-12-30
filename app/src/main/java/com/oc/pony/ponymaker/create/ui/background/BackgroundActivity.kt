@@ -17,14 +17,34 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityBackgroundBinding
+import com.oc.pony.ponymaker.create.dialog.ChooseColorDialog
+import com.oc.pony.ponymaker.create.dialog.DialogExit
+import com.oc.pony.ponymaker.create.dialog.DialogSpeech
+import com.oc.pony.ponymaker.create.ui.background.adapter.BackGroundTextAdapter
+import com.oc.pony.ponymaker.create.ui.background.adapter.ColorAdapter
+import com.oc.pony.ponymaker.create.ui.background.adapter.ColorTextAdapter
+import com.oc.pony.ponymaker.create.ui.background.adapter.FontAdapter
+import com.oc.pony.ponymaker.create.ui.background.adapter.ImageAdapter
+import com.oc.pony.ponymaker.create.ui.background.adapter.StikerAdapter
+import com.oc.pony.ponymaker.create.ui.main.MainActivity
+import com.oc.pony.ponymaker.create.ui.succes.SuccessActivity
+import com.oc.pony.ponymaker.create.utils.DataHelper
+import com.oc.pony.ponymaker.create.utils.dpToPx
 import com.oc.pony.ponymaker.create.utils.hide
 import com.oc.pony.ponymaker.create.utils.hideKeyboard
 import com.oc.pony.ponymaker.create.utils.inhide
+import com.oc.pony.ponymaker.create.utils.newIntent
 import com.oc.pony.ponymaker.create.utils.onClick
 import com.oc.pony.ponymaker.create.utils.onSingleClick
+import com.oc.pony.ponymaker.create.utils.pickImage
+import com.oc.pony.ponymaker.create.utils.saveBitmap
+import com.oc.pony.ponymaker.create.utils.setLayoutParam
 import com.oc.pony.ponymaker.create.utils.show
 import com.oc.pony.ponymaker.create.utils.showSystemUI
+import com.oc.pony.ponymaker.create.utils.showToast
+import com.oc.pony.ponymaker.create.utils.viewToBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,28 +53,28 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityBackgroundBinding>() {
+class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
     @Inject
     lateinit var apiRepository: com.oc.pony.ponymaker.create.data.repository.ApiRepository
-    val adapterBGText by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.BackGroundTextAdapter() }
-    val adapterColor by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.ColorAdapter() }
-    val adapterColorText by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.ColorTextAdapter() }
-    val adapterFont by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.FontAdapter() }
-    val adapterImage by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.ImageAdapter() }
-    val adapterStiker by lazy { _root_ide_package_.com.oc.pony.ponymaker.create.ui.background.adapter.StikerAdapter() }
+    val adapterBGText by lazy { BackGroundTextAdapter() }
+    val adapterColor by lazy { ColorAdapter() }
+    val adapterColorText by lazy { ColorTextAdapter() }
+    val adapterFont by lazy { FontAdapter() }
+    val adapterImage by lazy { ImageAdapter() }
+    val adapterStiker by lazy { StikerAdapter() }
     var path = ""
     val viewModel: BackGroundViewModel by viewModels()
     override fun getLayoutId(): Int = R.layout.activity_background
 
     override fun initView() {
-        if (_root_ide_package_.com.oc.pony.ponymaker.create.utils.DataHelper.arrBlackCentered.isEmpty()) {
+        if (DataHelper.arrBlackCentered.isEmpty()) {
 //            GlobalScope.launch(Dispatchers.IO) {
 //                getData(apiRepository)
 //            }
             startActivity(
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.newIntent(
+                newIntent(
                     applicationContext,
-                    _root_ide_package_.com.oc.pony.ponymaker.create.ui.main.MainActivity::class.java
+                    MainActivity::class.java
                 )
             )
             finish()
@@ -68,20 +88,20 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
             if (imeVisible) {
                 // 👉 Bàn phím HIỆN
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.setLayoutParam(
+                setLayoutParam(
                     binding.llBottom,
                     0f,
                     0f,
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(200f, applicationContext),
+                    dpToPx(200f, applicationContext),
                     0f
                 )
             } else {
                 // 👉 Bàn phím ẨN
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.setLayoutParam(
+                setLayoutParam(
                     binding.llBottom,
                     0f,
                     0f,
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(0f, applicationContext),
+                    dpToPx(0f, applicationContext),
                     0f
                 )
             }
@@ -181,7 +201,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
         binding.apply {
 
             llLoading.onSingleClick {
-                _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                showToast(
                     applicationContext,
                     R.string.please_wait_a_few_seconds_for_data_to_load
                 )
@@ -275,7 +295,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 }
             }
             imvBack.onSingleClick {
-                var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogExit(
+                var dialog = DialogExit(
                     this@BackgroundActivity,
                     "exit"
                 )
@@ -288,7 +308,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             btnReset.onSingleClick {
                 viewModel.setIsFocusEditText(false)
                 hideKeyboard()
-                var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogExit(
+                var dialog = DialogExit(
                     this@BackgroundActivity,
                     "reset"
                 )
@@ -336,9 +356,9 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 clearFocus()
                 lifecycleScope.launch(Dispatchers.IO) {
                     delay(200)
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.saveBitmap(
+                    saveBitmap(
                         this@BackgroundActivity,
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.viewToBitmap(binding.drawView),
+                        viewToBitmap(binding.drawView),
                         "",
                         false
                     ) { it, path, _ ->
@@ -349,13 +369,13 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                             startActivity(
                                 Intent(
                                     this@BackgroundActivity,
-                                    _root_ide_package_.com.oc.pony.ponymaker.create.ui.succes.SuccessActivity::class.java
+                                    SuccessActivity::class.java
                                 ).putExtra("path", path)
                             )
 
                         } else {
                             llLoading.visibility = View.GONE
-                            _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                            showToast(
                                 this@BackgroundActivity,
                                 R.string.save_failed
                             )
@@ -365,7 +385,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             }
             adapterImage.onClick = { pos ->
                 if (pos == 0) {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.pickImage(pickImageLauncher)
+                    pickImage(pickImageLauncher)
                 } else {
                     clearFocusBG()
                     Glide.with(applicationContext).load(viewModel.backgroundImageList[pos].path)
@@ -378,7 +398,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             adapterColor.onClick = { pos ->
                 if (pos == 0) {
                     val dialog =
-                        _root_ide_package_.com.oc.pony.ponymaker.create.dialog.ChooseColorDialog(this@BackgroundActivity)
+                        ChooseColorDialog(this@BackgroundActivity)
                     dialog.show()
 
                     dialog.onDoneEvent = { color ->
@@ -400,7 +420,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                 addDrawable(path)
             }
             adapterBGText.onClick = {
-                var dialog = _root_ide_package_.com.oc.pony.ponymaker.create.dialog.DialogSpeech(
+                var dialog = DialogSpeech(
                     this@BackgroundActivity,
                     viewModel.speechList[it].path
                 )
@@ -412,7 +432,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             adapterColorText.onClick = { pos ->
                 if (pos == 0) {
                     val dialog =
-                        _root_ide_package_.com.oc.pony.ponymaker.create.dialog.ChooseColorDialog(this@BackgroundActivity)
+                        ChooseColorDialog(this@BackgroundActivity)
                     dialog.show()
 
                     dialog.onDoneEvent = { color ->
@@ -471,7 +491,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
             viewModel.setIsFocusEditText(false)
             binding.apply {
                 if (iclText.edt.text.toString().trim() == "") {
-                    _root_ide_package_.com.oc.pony.ponymaker.create.utils.showToast(
+                    showToast(
                         applicationContext,
                         R.string.null_edt
                     )
@@ -482,7 +502,7 @@ class BackgroundActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Act
                     )
                     tvGetText.setTextColor(iclText.edt.textColors)
                     val bitmap =
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.viewToBitmap(tvGetText)
+                        viewToBitmap(tvGetText)
                     val drawableEmoji =
                         viewModel.loadDrawableEmoji(this@BackgroundActivity, bitmap, isText = true)
                     binding.drawView.addDraw(drawableEmoji)

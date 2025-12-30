@@ -11,12 +11,18 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.oc.pony.ponymaker.create.R
+import com.oc.pony.ponymaker.create.base.AbsBaseActivity
+import com.oc.pony.ponymaker.create.data.model.TutorialModel
 import com.oc.pony.ponymaker.create.databinding.ActivityTutorialBinding
+import com.oc.pony.ponymaker.create.ui.main.MainActivity
+import com.oc.pony.ponymaker.create.ui.permision.PermissionActivity
+import com.oc.pony.ponymaker.create.utils.CONST
+import com.oc.pony.ponymaker.create.utils.dpToPx
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TutorialActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<ActivityTutorialBinding>() {
+class TutorialActivity : AbsBaseActivity<ActivityTutorialBinding>() {
     @Inject
     lateinit var sharedPreferenceUtils: com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
     var listFragment = 3
@@ -27,15 +33,15 @@ class TutorialActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
     override fun initView() {
 
         var data = arrayListOf<com.oc.pony.ponymaker.create.data.model.TutorialModel>(
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.TutorialModel(
+            TutorialModel(
                 R.drawable.img_intro1,
                 getString(R.string.intro1)
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.TutorialModel(
+           TutorialModel(
                 R.drawable.img_intro2,
                 getString(R.string.intro2)
             ),
-            _root_ide_package_.com.oc.pony.ponymaker.create.data.model.TutorialModel(
+           TutorialModel(
                 R.drawable.img_intro3,
                 getString(R.string.intro3)
             )
@@ -69,14 +75,13 @@ class TutorialActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
             if (binding.viewPager.currentItem < listFragment - 1) {
                 binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1)
             } else {
-
-                if (!sharedPreferenceUtils.getBooleanValue(_root_ide_package_.com.oc.pony.ponymaker.create.utils.CONST.PERMISON)) {
-                    val intent = Intent(this@TutorialActivity, _root_ide_package_.com.oc.pony.ponymaker.create.ui.permision.PermissionActivity::class.java).addFlags(
+                if (!sharedPreferenceUtils.getBooleanValue(CONST.PERMISON)) {
+                    val intent = Intent(this@TutorialActivity, PermissionActivity::class.java).addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                     finish()
                 } else {
-                    val intent = Intent(this@TutorialActivity, _root_ide_package_.com.oc.pony.ponymaker.create.ui.main.MainActivity::class.java).addFlags(
+                    val intent = Intent(this@TutorialActivity, MainActivity::class.java).addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)
                     finish()
@@ -96,11 +101,11 @@ class TutorialActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
                     dots[i]
                         .setImageDrawable(resources.getDrawable(R.drawable.ic_bg_select))
                     val params = LinearLayout.LayoutParams(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(
+                        dpToPx(
                             20f,
                             applicationContext
                         ).toInt(),
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(8f, applicationContext)
+                        dpToPx(8f, applicationContext)
                             .toInt()
                     )
                     params.setMargins(4, 0, 4, 0)
@@ -111,9 +116,9 @@ class TutorialActivity : com.oc.pony.ponymaker.create.base.AbsBaseActivity<Activ
                             resources.getDrawable(R.drawable.ic_bg_not_select)
                         )
                     val params = LinearLayout.LayoutParams(
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(8f, applicationContext)
+                        dpToPx(8f, applicationContext)
                             .toInt(),
-                        _root_ide_package_.com.oc.pony.ponymaker.create.utils.dpToPx(8f, applicationContext)
+                        dpToPx(8f, applicationContext)
                             .toInt()
                     )
                     params.setMargins(4, 0, 4, 0)
