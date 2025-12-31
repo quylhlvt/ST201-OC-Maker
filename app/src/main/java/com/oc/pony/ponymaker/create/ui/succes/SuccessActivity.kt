@@ -79,7 +79,10 @@ class SuccessActivity : AbsBaseActivity<ActivitySuccessBinding>() {
                 }
 
             btnDownload.onClick {
-                handlePermissionRequest(isStorage = true)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    performDownload()
+                } else {
+                    handlePermissionRequest(isStorage = true)}
 
             }
         }

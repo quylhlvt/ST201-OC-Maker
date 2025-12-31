@@ -27,7 +27,7 @@ class FontAdapter :
            binding.tv.setTextColor("#ffffff".toColorInt())
        }else{
            binding.imv.setImageResource(R.drawable.imv_font_false)
-           binding.tv.setTextColor("#1F2F4F".toColorInt())
+           binding.tv.setTextColor("#ffffff".toColorInt())
        }
     }
 

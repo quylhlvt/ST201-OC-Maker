@@ -282,7 +282,7 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
                     btnImage.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.white))
 
                     btnColor.setBackgroundResource(R.drawable.bg_custom_unchoose)
-                    btnColor.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.app_color))
+                    btnColor.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.white))
                 }
                 btnColor.onSingleClick {
                     rcvColor.show()
@@ -291,7 +291,7 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
                     btnColor.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.white))
 
                     btnImage.setBackgroundResource(R.drawable.bg_custom_unchoose)
-                    btnImage.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.app_color))
+                    btnImage.setTextColor(ContextCompat.getColor(this@BackgroundActivity, R.color.white))
                 }
             }
             imvBack.onSingleClick {

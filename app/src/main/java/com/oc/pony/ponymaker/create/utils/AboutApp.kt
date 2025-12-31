@@ -45,6 +45,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
@@ -59,6 +60,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
+import androidx.annotation.ColorRes
+import androidx.annotation.FontRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -648,24 +651,37 @@ fun setLayoutParam(view: View, top: Float, right: Float, bottom: Float, left: Fl
     view.layoutParams = layoutParams
 }
 
-fun changeText(context: Context, text: String, color: Int, fontfamily: Int): SpannableString {
+fun changeText(
+    context: Context,
+    text: String,
+    @ColorRes colorRes: Int,
+    @FontRes fontFamily: Int
+): SpannableString {
+
     val spannableString = SpannableString(text)
+
+    // resolve color
+    val colorInt = ContextCompat.getColor(context, colorRes)
     spannableString.setSpan(
-        ForegroundColorSpan(color),
+        ForegroundColorSpan(colorInt),
         0,
         text.length,
-        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
-    val font = ResourcesCompat.getFont(context, fontfamily)
-    val typefaceSpan = CustomTypefaceSpan("", font)
-    spannableString.setSpan(
-        typefaceSpan,
-        0,
-        text.length,
-        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
+
+    // font
+    ResourcesCompat.getFont(context, fontFamily)?.let { font ->
+        spannableString.setSpan(
+            CustomTypefaceSpan("", font),
+            0,
+            text.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+
     return spannableString
 }
+
 
 var lastClickTime = 0L
 fun View.onSingleClick(action: () -> Unit) {

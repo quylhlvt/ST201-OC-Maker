@@ -71,6 +71,7 @@
                         android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:text="@string/add_image"
+                        android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/app_color"
                         android:textSize="8sp"
                         tools:ignore="SmallSp"

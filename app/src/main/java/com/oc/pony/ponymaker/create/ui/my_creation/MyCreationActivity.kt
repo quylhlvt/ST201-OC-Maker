@@ -579,8 +579,8 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
                     checkAvatar = true
                     btnAvatar.setBackgroundResource(R.drawable.bg_btn_my_work)
                     btnAvatar.setTextColor(ContextCompat.getColor(this@MyCreationActivity,R.color.white))
-                    btnDesign.setTextColor(ContextCompat.getColor(this@MyCreationActivity,R.color.app_color))
-                    btnDesign.setBackgroundResource(R.drawable.bg_btn_my_work_false)
+                    btnDesign.setTextColor(ContextCompat.getColor(this@MyCreationActivity,R.color.white))
+                    btnDesign.setBackgroundResource(R.drawable.bg_btn_my_work_unselect)
                     rcvAvatar.show()
                     rcvDesign.hide()
                     hideLongClick()
@@ -589,10 +589,10 @@ class MyCreationActivity : WhatsappSharingActivity<ActivityMyCreationBinding>() 
             btnDesign.onClick {
                 if (checkAvatar) {
                     checkAvatar = false
-                    btnAvatar.setBackgroundResource(R.drawable.bg_btn_my_work_false)
+                    btnAvatar.setBackgroundResource(R.drawable.bg_btn_my_work_unselect)
                     btnDesign.setBackgroundResource(R.drawable.bg_btn_my_work)
                     btnDesign.setTextColor(  ContextCompat.getColor(this@MyCreationActivity,R.color.white))
-                    btnAvatar.setTextColor(  ContextCompat.getColor(this@MyCreationActivity,R.color.app_color))
+                    btnAvatar.setTextColor(  ContextCompat.getColor(this@MyCreationActivity,R.color.white))
                     rcvDesign.show()
                     rcvAvatar.hide()
                     hideLongClick()

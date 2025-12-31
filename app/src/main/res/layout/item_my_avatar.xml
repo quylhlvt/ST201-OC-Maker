@@ -10,25 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="40dp"
-    android:background="@color/transparent"
-    android:layout_marginHorizontal="8dp"
-    app:cardBackgroundColor="@color/shadown_item_cate"
-    android:layout_marginBottom="8dp"
-    >
+        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="40dp"
+            android:background="@color/transparent"
+            android:layout_marginHorizontal="8dp"
+            app:cardElevation="3dp"
+            android:layout_marginBottom="8dp"
+            >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
 
         >
-
-
-
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -42,11 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="40dp"
-                app:strokeWidth="10dp"
-                app:strokeColor="#FFF5FE"
-                app:cardBackgroundColor="#FBE1FA"
-                android:outlineAmbientShadowColor="#E8C0F5"
-
+                app:strokeWidth="5dp"
+                app:strokeColor="@color/white"
+                app:cardBackgroundColor="#FFF3D2"
+                android:outlineAmbientShadowColor="#1F000000"
                 >
 
                 <!--            imvImage-->

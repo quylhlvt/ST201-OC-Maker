@@ -22,7 +22,7 @@
                 android:fontFamily="@font/itim_regular"
                 android:gravity="center"
                 android:text="@string/choose_color"
-                android:textColor="#1F2F4F"
+                android:textColor="@color/app_color"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                     android:layout_height="22dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_close_1"
-                    app:tint="#1F2F4F" />
+                    app:tint="@color/app_color" />
             </RelativeLayout>
 
             <ir.kotlin.kavehcolorpicker.KavehColorPicker
@@ -85,10 +85,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:fontFamily="@font/nunito_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center"
                         android:text="@string/done"
-                        android:textColor="@color/app_color"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
                 </RelativeLayout>
             </LinearLayout>

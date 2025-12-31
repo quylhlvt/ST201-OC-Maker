@@ -24,13 +24,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="1.5dp"
-                android:background="@drawable/bg_1000_stroke_red" />
+                android:background="@drawable/bg_white_1000" />
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="3.5dp"
-
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="1000dp"
                 app:cardElevation="0dp">

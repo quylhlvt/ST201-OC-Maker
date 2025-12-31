@@ -36,11 +36,9 @@ class ViewActivity : AbsBaseActivity<ActivityViewBinding>() {
     override fun initView() {
         path = intent.getStringExtra("data").toString()
         if (intent?.getStringExtra("type") == "avatar") {
-            binding.imvShare.show()
-            binding.tvEditShare.text= getString(R.string.edit)
+            binding.imvEdit.show()
         } else {
-            binding.imvShare.hide()
-            binding.tvEditShare.text= getString(R.string.share)
+            binding.imvEdit.hide()
 
         }
         Glide.with(applicationContext).load(path).into(binding.imv)
@@ -52,60 +50,7 @@ class ViewActivity : AbsBaseActivity<ActivityViewBinding>() {
             tvEditShare.isSelected = true
             tvDownload.isSelected = true
             imvBack.onSingleClick { finish() }
-            imvShare.onSingleClick {
-                shareListFiles(
-                    this@ViewActivity,
-                    arrayListOf(path)
-                )
-            }
-            imvDelete.onSingleClick {
-                var dialog = DialogExit(
-                    this@ViewActivity,
-                    "delete"
-                )
-                dialog.onClick = {
-                    File(path).delete()
-                    finish()
-                }
-                dialog.show()
-            }
-            btnDownload.onSingleClick {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
-                    !checkPermision(application)
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@ViewActivity,
-                        checkUsePermision(),
-                        CONST.REQUEST_STORAGE_PERMISSION
-                    )
-                }else{
-                    saveFileToExternalStorage(
-                        applicationContext,
-                        path,
-                        "",
-                    ) { check, path ->
-                        if (check) {
-                            Toast.makeText(
-                                applicationContext,
-                                getString(R.string.download_successfully) + " " + CONST.NAME_SAVE_FILE,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            scanMediaFile(
-                                this@ViewActivity,
-                                File(path)
-                            )
-                        } else {
-                            showToast(
-                                this@ViewActivity,
-                                R.string.download_failed
-                            )
-                        }
-                    }
-
-                }
-            }
-            btnEditShareAll.onSingleClick {
-                if (intent?.getStringExtra("type") == "avatar"){
+            imvEdit.onSingleClick {
                 viewModel.getAvatar(path) { avatar ->
                     if (avatar != null) {
                         var a =
@@ -134,23 +79,103 @@ class ViewActivity : AbsBaseActivity<ActivityViewBinding>() {
                                 R.string.please_check_your_network_connection
                             )
                         }
-
-                    } else {
-                        File(path).delete()
-                        showToast(
-                            applicationContext,
-                            R.string.image_error_please_try_again
-                        )
-                        finish()
                     }
                 }
-            }else{
-                    shareListFiles(
+            }
+            imvDelete.onSingleClick {
+                var dialog = DialogExit(
+                    this@ViewActivity,
+                    "delete"
+                )
+                dialog.onClick = {
+                    File(path).delete()
+                    finish()
+                }
+                dialog.show()
+            }
+            btnDownload.onSingleClick {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+                    !checkPermision(application)
+                ) {
+                    ActivityCompat.requestPermissions(
                         this@ViewActivity,
-                        arrayListOf(path)
+                        checkUsePermision(),
+                        CONST.REQUEST_STORAGE_PERMISSION
                     )
-            }}
+                } else {
+                    saveFileToExternalStorage(
+                        applicationContext,
+                        path,
+                        "",
+                    ) { check, path ->
+                        if (check) {
+                            Toast.makeText(
+                                applicationContext,
+                                getString(R.string.download_successfully) + " " + CONST.NAME_SAVE_FILE,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            scanMediaFile(
+                                this@ViewActivity,
+                                File(path)
+                            )
+                        } else {
+                            showToast(
+                                this@ViewActivity,
+                                R.string.download_failed
+                            )
+                        }
+                    }
 
+                }
+            }
+            btnEditShareAll.onSingleClick {
+//                if (intent?.getStringExtra("type") == "avatar"){
+//                viewModel.getAvatar(path) { avatar ->
+//                    if (avatar != null) {
+//                        var a =
+//                            DataHelper.arrBlackCentered.indexOfFirst { it.avt == avatar.pathAvatar }
+//                        if (a > -1) {
+//                            var a = avatar.pathAvatar.split("/")
+//                            var b = a[a.size - 2]
+//
+//                            startActivity(
+//                                Intent(
+//                                    applicationContext,
+//                                    CustomviewActivity::class.java
+//                                ).putExtra(
+//                                    "data",
+//                                    DataHelper.arrBlackCentered.indexOfFirst { it.avt == avatar.pathAvatar })
+//                                    .putExtra(
+//                                        "arr",
+//                                        toList(avatar.arr)
+//                                    ).putExtra("checkEdit", true)
+//                                    .putExtra("fileName", File(avatar.path).name)
+//                            )
+//
+//                        } else {
+//                            showToast(
+//                                applicationContext,
+//                                R.string.please_check_your_network_connection
+//                            )
+//                        }
+//
+//                    } else {
+//                        File(path).delete()
+//                        showToast(
+//                            applicationContext,
+//                            R.string.image_error_please_try_again
+//                        )
+//                        finish()
+//                    }
+//                }
+//            }else{
+                shareListFiles(
+                    this@ViewActivity,
+                    arrayListOf(path)
+                )
+//            }
+
+            }
         }
     }
 

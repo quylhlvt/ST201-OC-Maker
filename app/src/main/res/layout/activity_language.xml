@@ -27,10 +27,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/cherry_bomb_regular"
+                    android:fontFamily="@font/coda_extra_bold"
                     android:gravity="center"
                     android:text="@string/language"
-                    android:paddingBottom="10dp"
 
                     android:textColor="@color/app_color"
                     android:textSize="28sp"
@@ -38,10 +37,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="5"
-                    android:shadowDy="8"
-                    android:shadowRadius="6"
+
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -49,20 +45,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/cherry_bomb_regular"
+                    android:fontFamily="@font/coda_extra_bold"
                     android:gravity="center_vertical"
                     android:text="@string/language"
-                    android:paddingBottom="10dp"
 
                     android:textColor="@color/app_color"
                     android:textSize="28sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:shadowColor="#80000000"
-                android:shadowDx="5"
-                android:shadowDy="8"
-                android:shadowRadius="6"
+
                     />
 
                 <androidx.appcompat.widget.AppCompatImageView

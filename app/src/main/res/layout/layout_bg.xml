@@ -43,7 +43,7 @@
                 android:fontFamily="@font/itim_regular"
                 android:gravity="center"
                 android:text="@string/color"
-                android:textColor="@color/app_color" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

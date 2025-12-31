@@ -51,25 +51,26 @@ class BitmapDrawIcon(drawable: Drawable?, @Gravity gravity: Int) : DrawableDraw(
 
 
     fun draw(canvas: Canvas, paint: Paint) {
-        paint.isAntiAlias = true
-        paint.style = Paint.Style.FILL
-        paint.alpha = 255
-        val gradient = LinearGradient(
-            x - radius, y,
-            x + radius, y,
-            intArrayOf(
-                "#FF7EFEFD".toColorInt(), // Thêm FF → opaque hoàn toàn
-                "#FFF5A8F6".toColorInt()  // Thêm FF
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
+//        paint.isAntiAlias = true
+//        paint.style = Paint.Style.FILL
+//        paint.alpha = 255
+//        val gradient = LinearGradient(
+//            x - radius, y,
+//            x + radius, y,
+//            intArrayOf(
+//                "#FF7EFEFD".toColorInt(), // Thêm FF → opaque hoàn toàn
+//                "#FFF5A8F6".toColorInt()  // Thêm FF
+//            ),
+//            null,
+//            Shader.TileMode.CLAMP
+//        )
 
-        paint.shader = gradient
+//        paint.shader = gradient
+        paint.color= "#205ABE".toColorInt()
         canvas.drawCircle(x, y, radius, paint)
 
 
-        paint.shader = null // reset để tránh ảnh hưởng super.draw
+//        paint.shader = null // reset để tránh ảnh hưởng super.draw
         super.draw(canvas)
     }
 }

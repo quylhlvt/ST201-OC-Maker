@@ -68,7 +68,7 @@
     <string name="privacy_amp_policy"><![CDATA[Datenschutz & Richtlinie]]></string>
     <string name="please_check_your_network_connection">Bitte überprüfe deine Netzwerkverbindung.</string>
     <string name="reset_your_customize">Zurücksetzen</string>
-    <string name="haven_t_saved_it_yet_do_you_want_to_exit">Noch nicht gespeichert,\nmöchtest du beenden?</string>
+    <string name="haven_t_saved_it_yet_do_you_want_to_exit">Noch nicht gespeichert,möchtest du beenden?</string>
     <string name="do_you_want_to_delete_this_item">Möchtest du dieses Element löschen?</string>
     <string name="please_wait_a_few_seconds_for_data_to_load">Bitte warte ein paar Sekunden, bis die Daten geladen werden.</string>
     <string name="image">Bild</string>

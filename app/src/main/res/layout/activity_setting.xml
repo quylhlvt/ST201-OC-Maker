@@ -26,19 +26,15 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cherry_bomb_regular"
+            android:fontFamily="@font/coda_extra_bold"
             android:text="@string/settings"
             android:textColor="@color/app_color"
             android:textSize="28sp"
-            android:paddingBottom="10dp"
             app:layout_constraintBottom_toBottomOf="@id/imvBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/imvBack"
-            android:shadowColor="#80000000"
-            android:shadowDx="5"
-            android:shadowDy="8"
-            android:shadowRadius="6"
+
             />
 
         <LinearLayout

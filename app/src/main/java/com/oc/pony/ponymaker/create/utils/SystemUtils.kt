@@ -2,6 +2,10 @@ package com.oc.pony.ponymaker.create.utils
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.LinearGradient
+import android.graphics.Shader
+import android.widget.TextView
+import androidx.annotation.ColorInt
 import java.util.Locale
 
 object SystemUtils {
@@ -9,6 +13,21 @@ object SystemUtils {
     private var myLocale: Locale? = null
     fun saveLocale(context: Context, lang: String?) {
         setPreLanguage(context, lang)
+    }
+    fun TextView.gradientVertical(
+        @ColorInt startColor: Int,
+        @ColorInt endColor: Int
+    ) {
+        post {
+            paint.shader = LinearGradient(
+                0f, 0f,
+                0f, height.toFloat(),
+                startColor,
+                endColor,
+                Shader.TileMode.CLAMP
+            )
+            invalidate()
+        }
     }
 
     fun setLocale(context: Context) {

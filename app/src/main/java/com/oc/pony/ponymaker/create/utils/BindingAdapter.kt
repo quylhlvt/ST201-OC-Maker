@@ -22,14 +22,14 @@ fun ConstraintLayout.setBGCV(check: LanguageModel) {
         this.setBackgroundResource(R.drawable.bg_card_border_100_false)
     }
 }
-@BindingAdapter("setCard")
-fun ImageView.setCard(model: LanguageModel) {
-    if (model.active) {
-        this.setBackgroundResource(R.color.showdown_olive)
-    } else {
-        this.background = null  // Hoặc setBackgroundResource(0)
-    }
-}
+//@BindingAdapter("setCard")
+//fun ImageView.setCard(model: LanguageModel) {
+//    if (model.active) {
+//        this.setBackgroundResource(R.color.showdown_olive)
+//    } else {
+//        this.background = null  // Hoặc setBackgroundResource(0)
+//    }
+//}
 
 @BindingAdapter("setSrcCheckLanguage")
 fun AppCompatImageView.setSrcCheckLanguage(check: Boolean) {

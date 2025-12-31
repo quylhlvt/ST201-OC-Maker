@@ -3,6 +3,7 @@ package com.oc.pony.ponymaker.create.ui.permision
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.text.TextUtils
 import android.view.View
@@ -13,8 +14,11 @@ import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityPermissionBinding
 import com.oc.pony.ponymaker.create.ui.main.MainActivity
+import com.oc.pony.ponymaker.create.utils.CONST
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_NOTIFICATION_PERMISSION
 import com.oc.pony.ponymaker.create.utils.CONST.REQUEST_STORAGE_PERMISSION
+import com.oc.pony.ponymaker.create.utils.SystemUtils.gradientVertical
+import com.oc.pony.ponymaker.create.utils.changeText
 import com.oc.pony.ponymaker.create.utils.onSingleClick
 import com.oc.pony.ponymaker.create.utils.showDialogNotifiListener
 import com.oc.pony.ponymaker.create.utils.showToast
@@ -32,6 +36,10 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_permission
 
     override fun initView() {
+        binding.btnContinue.gradientVertical(
+            "#6ADFFF".toColorInt(),
+            "#3175EB".toColorInt()
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             binding.rl4.visibility = View.VISIBLE
             binding.rl2.visibility = View.GONE
@@ -42,11 +50,21 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
 
         val space = " "
         binding.tvTitle.text = TextUtils.concat(
-            com.oc.pony.ponymaker.create.utils.changeText(this, getString(R.string.allow), "#1F2F4F".toColorInt(), R.font.itim_regular),
+            changeText(this, getString(R.string.allow), R.color.app_color3, R.font.roboto_regular),
             space,
-            com.oc.pony.ponymaker.create.utils.changeText(this, getString(R.string.app_name), "#FF4798".toColorInt(), R.font.itim_regular),
+            changeText(
+                this,
+                getString(R.string.app_name),
+                R.color.app_color3,
+                R.font.roboto_medium
+            ),
             space,
-            com.oc.pony.ponymaker.create.utils.changeText(this, getString(R.string.request_permission_to_use_notifications_to_notify_you), "#1F2F4F".toColorInt(), R.font.itim_regular)
+            changeText(
+                this,
+                getString(R.string.request_permission_to_use_notifications_to_notify_you),
+                R.color.app_color3,
+                R.font.roboto_regular
+            )
         )
 
         checkPer()
@@ -54,17 +72,21 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
 
     override fun initAction() {
         binding.btnContinue.onSingleClick {
+            sharedPreferenceUtils.putBooleanValue(CONST.PERMISON,true)
             val intent = Intent(this@PermissionActivity, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
             finish()
         }
 
         binding.swiVibrate2.onSingleClick {
+            sharedPreferenceUtils.putBooleanValue(CONST.PERMISON,true)
             handlePermissionRequest(isStorage = true)
         }
 
         binding.swiVibrate4.onSingleClick {
+            sharedPreferenceUtils.putBooleanValue(CONST.PERMISON,true)
             handlePermissionRequest(isStorage = false)
         }
     }
@@ -83,13 +105,15 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
 
         // Kiểm tra nếu đã từ chối nhiều lần và không còn show rationale → gợi ý vào Settings
         if (viewModel.needGoToSettings(sharedPreferenceUtils, isStorage)) {
-            val dialogRes = if (isStorage) R.string.reques_storage else R.string.content_dialog_notification
+            val dialogRes =
+                if (isStorage) R.string.reques_storage else R.string.content_dialog_notification
             showDialogNotifiListener(dialogRes)
             return
         }
 
         // Request permission bình thường
-        val requestCode = if (isStorage) REQUEST_STORAGE_PERMISSION else REQUEST_NOTIFICATION_PERMISSION
+        val requestCode =
+            if (isStorage) REQUEST_STORAGE_PERMISSION else REQUEST_NOTIFICATION_PERMISSION
         ActivityCompat.requestPermissions(this, permissions, requestCode)
     }
 
@@ -106,7 +130,8 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        val isGranted = grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+        val isGranted =
+            grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
 
         when (requestCode) {
             REQUEST_STORAGE_PERMISSION -> {
@@ -139,7 +164,10 @@ class PermissionActivity : AbsBaseActivity<ActivityPermissionBinding>() {
 
     private fun checkPer() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val notiGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            val notiGranted = ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
             binding.swiVibrate4.setImageResource(if (notiGranted) R.drawable.switch_on else R.drawable.switch_off)
         } else {
             // Giả sử checkPermision() kiểm tra đúng quyền storage cũ (WRITE_EXTERNAL_STORAGE hoặc READ_EXTERNAL_STORAGE)
