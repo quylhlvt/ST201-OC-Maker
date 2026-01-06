@@ -14,6 +14,7 @@ import android.os.SystemClock
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import androidx.annotation.IntDef
@@ -84,10 +85,8 @@ open class DrawView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     private val bringToFrontCurrentSticker: Boolean
 
     private val touchSlop: Int
-
     @ActionMode
     private var currentMode = DrawKey.NONE
-
     private var handlingDraw: DrawableDraw? = null
 
     private var lastClickTime: Long = 0L
@@ -105,6 +104,8 @@ open class DrawView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 
     init {
         touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+        //quylh dùng hardware layer tối ưu hiệu suất vẽ
+//        setLayerType(LAYER_TYPE_HARDWARE, null)
         val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.StickerView)
         try {
             isShowIcons = typedArray.getBoolean(R.styleable.StickerView_showIcons, true)

@@ -232,6 +232,7 @@ fun Activity.backPress(providerSharedPreference: SharedPreferenceUtils) {
             rateUs(1)
         } else {
             finishAffinity()
+
         }
     } else {
         finishAffinity()

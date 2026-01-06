@@ -68,7 +68,7 @@ class CropView : AppCompatImageView {
     }
 
     private fun initCropView() {
-        paint.color = Color.YELLOW
+        paint.color = Color.BLUE
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 5f
         leftTop = Point()
@@ -76,7 +76,6 @@ class CropView : AppCompatImageView {
         center = Point()
         previous = Point()
     }
-
     fun resetPoints() {
         center!!.set(width / 2, height / 2)
         leftTop!![(width - initial_size) / 2] = (height - initial_size) / 2

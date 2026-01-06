@@ -10,29 +10,32 @@
         android:gravity="center">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_weight="328"
+            android:layout_weight="250"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="16dp">
+            android:layout_marginHorizontal="55dp">
 
 
             <FrameLayout
                 android:id="@+id/titleFame"
                 android:layout_width="0dp"
-                android:layout_height="76dp"
+                android:layout_height="58dp"
                 android:background="@drawable/bg_title_dialog"
-                app:layout_constraintDimensionRatio="2.16:0.76"
+                app:layout_constraintDimensionRatio="1.64:0.58"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:elevation="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <TextView
+                    style="@style/single_marquee"
+                    app:strokeJoinStyle="miter"
                     android:id="@+id/txtTitle"
                     android:gravity="center"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/coda_extra_bold"
                     android:layout_width="match_parent"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_height="match_parent"
                     android:paddingBottom="5dp"
                     android:textAllCaps="true"
@@ -52,25 +55,26 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:layout_marginTop="-30dp"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_marginHorizontal="36dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/schemerg_regular"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="@string/haven_t_saved_it_yet_do_you_want_to_exit"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/btnNo"
-                    android:layout_marginTop="15dp"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/bg_btn_rate"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="@string/no"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/schemerg_regular"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1.12:0.40"
                     app:layout_constraintEnd_toStartOf="@+id/btnYes"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,12 +83,12 @@
                 <TextView
                     android:id="@+id/btnYes"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="36dp"
                     android:background="@drawable/bg_btn_rate"
                     android:gravity="center"
                     android:text="@string/tv_yes"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/schemerg_regular"
+                    android:fontFamily="@font/roboto_medium"
                     app:layout_constraintDimensionRatio="1.12:0.40"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btnNo"

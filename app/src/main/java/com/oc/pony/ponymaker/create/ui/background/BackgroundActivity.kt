@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.oc.pony.ponymaker.create.R
 import com.oc.pony.ponymaker.create.base.AbsBaseActivity
 import com.oc.pony.ponymaker.create.databinding.ActivityBackgroundBinding
@@ -67,6 +68,7 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_background
 
     override fun initView() {
+        binding.txtTitle.isSelected = true
         if (DataHelper.arrBlackCentered.isEmpty()) {
 //            GlobalScope.launch(Dispatchers.IO) {
 //                getData(apiRepository)
@@ -150,7 +152,7 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
                 adapterFont.submitList(viewModel.textFontList)
                 adapterColorText.submitList(viewModel.textColorList)
                 delay(200)
-                clearFocus()
+//                clearFocus()
                 dismissLoading()
                 binding.iclText.edt.typeface = ResourcesCompat.getFont(
                     binding.root.context, viewModel.textFontList[0].color
@@ -183,7 +185,9 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
         lifecycleScope.launch(Dispatchers.IO) {
             val bitmapDefault =
                 bitmapText
-                    ?: Glide.with(this@BackgroundActivity).load(path).submit()
+                    ?: Glide.with(this@BackgroundActivity).load(path).override(512, 512)
+                        .encodeQuality(50)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE).submit()
                         .get().toBitmap()
             val drawableEmoji =
                 viewModel.loadDrawableEmoji(this@BackgroundActivity, bitmapDefault, isCharacter)
@@ -215,18 +219,14 @@ class BackgroundActivity : AbsBaseActivity<ActivityBackgroundBinding>() {
                 hideKeyboard()
                 if (checkSee) {
                     btnSee.setImageResource(R.drawable.imv_see_false)
-                    imvBack.inhide()
-                    btnReset.inhide()
-                    btnSave.inhide()
                     llBottom.inhide()
                     ctl.inhide()
+                    navBottom.inhide()
                 } else {
                     btnSee.setImageResource(R.drawable.ic_show)
-                    imvBack.show()
-                    btnReset.show()
-                    btnSave.show()
                     llBottom.show()
                     ctl.show()
+                    navBottom.show()
                 }
                 checkSee = !checkSee
             }

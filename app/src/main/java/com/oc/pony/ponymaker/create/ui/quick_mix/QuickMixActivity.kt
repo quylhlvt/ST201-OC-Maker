@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class QuickMixActivity : AbsBaseActivity<ActivityQuickMixBinding>() {
-    var sizeMix = 21
+    var sizeMix = 100
     var arrMix = arrayListOf<com.oc.pony.ponymaker.create.data.model.CustomModel>()
     @Inject
     lateinit var apiRepository: com.oc.pony.ponymaker.create.data.repository.ApiRepository

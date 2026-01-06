@@ -17,7 +17,7 @@
             android:elevation="1dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="50dp"
             android:src="@drawable/ic_back_app"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="@string/language"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="@string/rate_us"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="@string/share_app"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="@string/privacy_amp_policy"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />

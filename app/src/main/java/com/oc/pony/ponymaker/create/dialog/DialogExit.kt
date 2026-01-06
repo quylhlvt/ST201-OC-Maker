@@ -14,6 +14,7 @@ class DialogExit(context: Activity, var type: String) :
         when(type){
             "exit" ->{
                 binding.txtTitle.text = context.getString(R.string.exit)
+                binding.txtTitle.isSelected = true
                 binding.txtContent.text = context.getString(R.string.haven_t_saved_it_yet_do_you_want_to_exit)
 //                binding.nativeAds.show()
 //                Admob.getInstance().loadNativeAd(
@@ -25,10 +26,12 @@ class DialogExit(context: Activity, var type: String) :
             }
             "reset"->{
                 binding.txtTitle.text = context.getString(R.string.reset)
+                binding.txtTitle.isSelected = true
                 binding.txtContent.text = context.getString(R.string.do_you_want_to_reset_all)
             }
             "delete"->{
                 binding.txtTitle.text = context.getString(R.string.delete)
+                binding.txtTitle.isSelected = true
                 binding.txtContent.text = context.getString(R.string.do_you_want_to_delete_this_item)
             }
         }

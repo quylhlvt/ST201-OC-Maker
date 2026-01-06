@@ -24,7 +24,6 @@ import com.oc.pony.ponymaker.create.utils.SharedPreferenceUtils
 import com.oc.pony.ponymaker.create.utils.backPress
 import com.oc.pony.ponymaker.create.utils.newIntent
 import com.oc.pony.ponymaker.create.utils.onSingleClick
-import com.oc.pony.ponymaker.create.utils.showInter
 import com.oc.pony.ponymaker.create.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -190,14 +189,13 @@ class MainActivity : AbsBaseActivity<ActivityMainBinding>() {
             }
             btnQuickMaker.onSingleClick {
                 if (!checkCallingDataOnline) {
-                    showInter {
                         startActivity(
                             newIntent(
                                 applicationContext,
                                QuickMixActivity::class.java
                             )
                         )
-                    }
+
                 } else {
                     showToast(
                         applicationContext,
@@ -207,14 +205,13 @@ class MainActivity : AbsBaseActivity<ActivityMainBinding>() {
             }
             btnMyAlbum.onSingleClick {
                 if (!checkCallingDataOnline) {
-                    showInter {
                         startActivity(
                             newIntent(
                                 applicationContext,
                                 MyCreationActivity::class.java
                             )
                         )
-                    }
+
                 } else {
                     showToast(
                         applicationContext, R.string.please_wait_a_few_seconds_for_data_to_load
@@ -249,10 +246,13 @@ class MainActivity : AbsBaseActivity<ActivityMainBinding>() {
     }
 
     override fun onBackPressed() {
-        backPress(
-            SharedPreferenceUtils(
-                applicationContext
+        lifecycleScope.launch {
+            backPress(
+                SharedPreferenceUtils(
+                    applicationContext
+                )
             )
-        )
+        }
+
     }
 }

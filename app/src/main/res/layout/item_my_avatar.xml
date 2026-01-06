@@ -50,22 +50,21 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_per" />
-
+                <ImageView
+                    android:id="@+id/btnEdit"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_margin="18dp"
+                    android:src="@drawable/imv_edit_2" />
                 <ImageView
                     android:id="@+id/btnDelete"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_margin="18dp"
-                    android:src="@drawable/imv_delete" />
-
-                <!--        btnEdit-->
-                <ImageView
-                    android:id="@+id/btnEdit"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
                     android:layout_gravity="end"
-                    android:layout_margin="18dp"
-                    android:src="@drawable/imv_edit_2" />
+                    android:src="@drawable/imv_delete" />
+                <!--        btnEdit-->
+
 
                 <!--        btnSelect-->
                 <ImageView

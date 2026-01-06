@@ -1,5 +1,6 @@
 package com.oc.pony.ponymaker.create.ui.customview
 
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -41,25 +42,36 @@ class PartAdapter : AbsBaseAdapter<String, ItemPartBinding>(R.layout.item_part, 
         binding.apply {
             imageBgItem.setBackgroundResource( if (posPath == position) R.drawable.bg_frame_custom_item_select else R.drawable.bg_frame_custom_item_unselect)
         }
-        binding.imv.setMargins(0, 0, 0, 0)
+        Glide.with(binding.imv).clear(binding.imv)
+        // 🔴 BẮT BUỘC: scaleType cố định
+        binding.imv.scaleType = ImageView.ScaleType.CENTER_INSIDE
+        // reset padding (KHÔNG dùng margin)
+        binding.imv.setPadding(0, 0, 0, 0)
         when (data) {
             "none" -> {
-                binding.imv.setMargins(26 ,26,26,26)
-                Glide.with(binding.root).load(R.drawable.ic_none).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(binding.imv)
-            }
 
+                binding.imv.setPadding(16, 16, 16, 16)
+                loadImage(binding, R.drawable.ic_none)
+            }
             "dice" -> {
-                binding.imv.setMargins(16 ,16,16,16)
-                Glide.with(binding.root).load(R.drawable.ic_random_layer).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(binding.imv)
+                binding.imv.setPadding(6, 6, 6, 6)
+                loadImage(binding, R.drawable.ic_random_layer)
             }
             else -> {
-                Glide.with(binding.root).load(data).into(binding.imv)
+                loadImage(binding, data)
             }
         }
-
         binding.root.onClickCustom {
             onClick?.invoke(position,data)
         }
-
+    }
+    private fun loadImage(binding: ItemPartBinding, data: Any) {
+        Glide.with(binding.imv)
+            .load(data)
+            .encodeQuality(50)
+            .override(512)
+            .dontTransform()
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(binding.imv)
     }
 }

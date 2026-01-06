@@ -23,7 +23,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="50dp"
             android:src="@drawable/ic_back_app"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
         <LinearLayout
             android:id="@+id/llColor"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="#80EFCEBF"
             android:gravity="start"
             android:orientation="horizontal"
@@ -211,18 +211,18 @@
                 android:gravity="center">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_weight="328"
+                    android:layout_weight="250"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginHorizontal="16dp">
+                    android:layout_marginHorizontal="57dp">
 
 
                     <FrameLayout
                         android:id="@+id/titleFame"
                         android:layout_width="0dp"
-                        android:layout_height="76dp"
+                        android:layout_height="58dp"
                         android:background="@drawable/bg_title_dialog"
-                        app:layout_constraintDimensionRatio="2.16:0.76"
+                        app:layout_constraintDimensionRatio="1.64:0.58"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:elevation="1dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -230,7 +230,10 @@
                         <TextView
                             android:id="@+id/txtTitle"
                             android:gravity="center"
-                            android:textSize="25dp"
+                            android:textSize="20dp"
+                            style="@style/single_marquee"
+                            android:layout_marginHorizontal="20dp"
+                            app:strokeJoinStyle="miter"
                             android:textColor="@color/white"
                             android:fontFamily="@font/coda_extra_bold"
                             android:layout_width="match_parent"
@@ -252,7 +255,7 @@
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:layout_marginTop="-30dp"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:fontFamily="@font/roboto_medium"
                             android:layout_marginHorizontal="36dp"
                             android:layout_width="match_parent"
@@ -275,14 +278,15 @@
                         <TextView
                             android:visibility="gone"
                             android:id="@+id/btnNo"
-                            android:layout_marginTop="15dp"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="15dp"
                             android:background="@drawable/bg_btn_rate"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
                             android:text="@string/no"
-                            android:textColor="@color/app_color"
-                            android:fontFamily="@font/schemerg_regular"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1.12:0.40"
                             app:layout_constraintEnd_toStartOf="@+id/btnYes"
                             app:layout_constraintStart_toStartOf="parent"
@@ -292,12 +296,12 @@
                             android:visibility="gone"
                             android:id="@+id/btnYes"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="36dp"
                             android:background="@drawable/bg_btn_rate"
                             android:gravity="center"
                             android:text="@string/tv_yes"
-                            android:textColor="@color/app_color"
-                            android:fontFamily="@font/schemerg_regular"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/roboto_medium"
                             app:layout_constraintDimensionRatio="1.12:0.40"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/btnNo"

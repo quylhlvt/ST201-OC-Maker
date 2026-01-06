@@ -32,7 +32,7 @@
     <string name="add_to_telegram">Telegram में जोड़ें</string>
     <string name="add_to_whatsapp">WhatsApp में जोड़ें</string>
     <string name="pony_maker">पोनी मेकर</string>
-    <string name="trending_custom">ट्रेंडिंग कस्टम</string>
+    <string name="trending_custom">त्वरित निर्माता</string>
     <string name="trending">ट्रेंडिंग</string>
     <string name="no_item_here">यहाँ कोई आइटम नहीं है</string>
     <string name="delete">मिटाएँ</string>
@@ -65,6 +65,7 @@
     <string name="intro3">अद्वितीय श्रेणियों की विविधता</string>
     <string name="you_have_not_selected_anything_yet">आपने अभी तक कोई आइटम नहीं चुना है</string>
     <string name="my_work">मेरा काम</string>
+    <string name="my_creation">मेरी रचना</string>
     <string name="privacy_amp_policy"><![CDATA[गोपनीयता और नीति]]></string>
     <string name="please_check_your_network_connection">कृपया अपना नेटवर्क कनेक्शन जांचें।</string>
     <string name="reset_your_customize">रीसेट करें</string>

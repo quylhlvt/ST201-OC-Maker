@@ -54,7 +54,7 @@
             android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:text="@string/this_action_may_contain_advertising"
-            android:textColor="#4B4B4B"
+            android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

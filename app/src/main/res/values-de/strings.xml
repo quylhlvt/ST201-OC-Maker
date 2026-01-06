@@ -31,8 +31,8 @@
     <string name="share">Teilen</string>
     <string name="add_to_telegram">Zu Telegram hinzufügen</string>
     <string name="add_to_whatsapp">Zu WhatsApp hinzufügen</string>
-    <string name="pony_maker">Pony-Macher</string>
-    <string name="trending_custom">Trend-Anpassung</string>
+    <string name="pony_maker">OC-Macher</string>
+    <string name="trending_custom">Schneller Ersteller</string>
     <string name="trending">Trend</string>
     <string name="no_item_here">Kein Element hier</string>
     <string name="delete">Löschen</string>
@@ -65,6 +65,7 @@
     <string name="intro3">Vielfalt an einzigartigen Kategorien</string>
     <string name="you_have_not_selected_anything_yet">Du hast noch nichts ausgewählt</string>
     <string name="my_work">Meine Arbeit</string>
+    <string name="my_creation">Meine Kreation</string>
     <string name="privacy_amp_policy"><![CDATA[Datenschutz & Richtlinie]]></string>
     <string name="please_check_your_network_connection">Bitte überprüfe deine Netzwerkverbindung.</string>
     <string name="reset_your_customize">Zurücksetzen</string>

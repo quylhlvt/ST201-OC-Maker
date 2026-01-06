@@ -12,37 +12,41 @@
     android:background="@drawable/img_frame_bg_layer_custom"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imvTick"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/imv_tick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvTick">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="12dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imvTick"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/imv_tick"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/text"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imvTick" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edt"
@@ -53,15 +57,15 @@
                 android:background="@drawable/bg_white_8"
                 android:fontFamily="@font/itim_regular"
                 android:hint="@string/type_your_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLength="30"
                 android:paddingStart="16dp"
                 android:paddingEnd="6dp"
                 android:singleLine="true"
-                android:maxLength="30"
-                android:textColorHint="#80868686"
                 android:textColor="@color/black"
+                android:textColorHint="#80868686"
                 android:textSize="14sp"
-                android:imeOptions="actionDone"
-                android:inputType="text"
                 app:layout_constraintTop_toBottomOf="@id/tv" />
 
             <androidx.appcompat.widget.AppCompatTextView

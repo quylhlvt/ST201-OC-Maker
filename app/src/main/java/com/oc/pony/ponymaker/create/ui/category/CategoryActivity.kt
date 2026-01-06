@@ -8,7 +8,6 @@ import com.oc.pony.ponymaker.create.utils.DataHelper
 import com.oc.pony.ponymaker.create.utils.isInternetAvailable
 import com.oc.pony.ponymaker.create.utils.newIntent
 import com.oc.pony.ponymaker.create.utils.onSingleClick
-import com.oc.pony.ponymaker.create.utils.showInter
 import com.oc.pony.ponymaker.create.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -47,14 +46,12 @@ class CategoryActivity : AbsBaseActivity<ActivityCategoryBinding>() {
     override fun initAction() {
         binding.apply {
             imvBack.onSingleClick {
-                showInter {
                     finish()
                 }
-            }
+
             adapter.onCLick = {
                 if (DataHelper.arrBlackCentered[it].checkDataOnline) {
                     if (isInternetAvailable(this@CategoryActivity)) {
-                        showInter {
                             var a = DataHelper.arrBlackCentered[it].avt.split("/")
                             var b = a[a.size - 2]
 
@@ -64,7 +61,7 @@ class CategoryActivity : AbsBaseActivity<ActivityCategoryBinding>() {
                                     CustomviewActivity::class.java
                                 ).putExtra("data", it)
                             )
-                        }
+
                     } else {
                         showToast(
                             this@CategoryActivity,
@@ -72,7 +69,6 @@ class CategoryActivity : AbsBaseActivity<ActivityCategoryBinding>() {
                         )
                     }
                 } else {
-                    showInter {
                         var a = DataHelper.arrBlackCentered[it].avt.split("/")
                         var b = a[a.size - 2]
 
@@ -82,7 +78,7 @@ class CategoryActivity : AbsBaseActivity<ActivityCategoryBinding>() {
                                 CustomviewActivity::class.java
                             ).putExtra("data", it)
                         )
-                    }
+
                 }
             }
         }

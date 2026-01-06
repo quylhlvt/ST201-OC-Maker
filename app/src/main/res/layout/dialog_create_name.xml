@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:paddingVertical="8dp"
                     android:text="@string/no"
-                    android:textColor="@color/app_color" />
+                    android:textColor="@color/white" />
 
                 <!--                tvYes-->
                 <TextView
@@ -78,7 +78,7 @@
                     android:gravity="center"
                     android:paddingVertical="8dp"
                     android:text="@string/tv_yes"
-                    android:textColor="@color/app_color" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
 

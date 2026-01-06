@@ -28,7 +28,7 @@
                 android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_custom_choose"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="@string/image"
                 android:textColor="@color/white" />
@@ -40,7 +40,7 @@
                 android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_custom_unchoose"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="@string/color"
                 android:textColor="@color/white" />

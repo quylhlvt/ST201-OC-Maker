@@ -3,6 +3,8 @@ package com.oc.pony.ponymaker.create.ui.tutorial
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.oc.pony.ponymaker.create.databinding.ItemTutorialBinding
 
 
@@ -30,8 +32,17 @@ class ViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.mTutorialModel = data[position]
-            binding.imv.setImageResource(data[position].bg)
-
+            Glide.with(binding.imv)
+                .load(data[position].bg)
+                .encodeQuality(50)
+                .override(512)
+                .dontTransform()
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .into(binding.imv)
+            binding.tv1.isSelected = false
+            binding.tv1.postDelayed({
+                binding.tv1.isSelected = true
+            }, 50)
         }
     }
 }

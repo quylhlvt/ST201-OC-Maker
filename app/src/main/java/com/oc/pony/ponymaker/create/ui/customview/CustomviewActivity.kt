@@ -51,6 +51,7 @@ class CustomviewActivity : AbsBaseActivity<ActivityCustomizeBinding>() {
 
     override fun initView() {
         binding.btnSave.isSelected = true
+        binding.txtTitle.isSelected = true
         if (DataHelper.arrBlackCentered.size > 0) {
             binding.apply {
                 rcvPart.adapter = adapterPart
@@ -531,27 +532,13 @@ class CustomviewActivity : AbsBaseActivity<ActivityCustomizeBinding>() {
                 }
             }
             btnSee.onSingleClick {
-                if (btnRevert.isInvisible) {
-                    btnRevert.show()
-                    btnReset.show()
-                    btnSave.show()
-                    if (listData[adapterNav.posNav].listPath.size > 1) {
-                        if (arrShowColor[adapterNav.posNav]) {
-                            binding.llColor.show()
-                        }
-                    }
-                    if (countRandom < 3) {
-                        btnDice.show()
-                    }
+                if (llNav.isInvisible) {
+                    binding.llColor.show()
                     llPart.show()
                     llNav.show()
                     btnSee.setImageResource(R.drawable.ic_show)
                 } else {
-                    btnRevert.inhide()
-                    btnReset.inhide()
-                    btnSave.inhide()
                     llColor.inhide()
-                    btnDice.inhide()
                     llPart.inhide()
                     llNav.inhide()
                     btnSee.setImageResource(R.drawable.imv_see_false)

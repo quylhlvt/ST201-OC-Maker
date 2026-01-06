@@ -17,7 +17,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="50dp"
             android:elevation="1dp"
             android:src="@drawable/ic_back_app"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,22 +45,22 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imvTickAll"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:padding="2dp"
-            android:layout_marginEnd="14dp"
             android:visibility="gone"
+            android:layout_marginEnd="14dp"
             android:src="@drawable/imv_tick_all_false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imvBack"
             app:layout_constraintBottom_toBottomOf="@id/imvBack"/>
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imvDelete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="20dp"
+            android:visibility="gone"
+            android:layout_height="20dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/imv_delete1"
-            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/imvTickAll"
             app:layout_constraintTop_toTopOf="@id/imvBack"
             app:layout_constraintBottom_toBottomOf="@id/imvBack"/>
@@ -76,28 +76,28 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/btnAvatar"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_my_work"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="@string/avatar"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
                 <Space
                     android:layout_width="16dp"
                     android:layout_height="match_parent"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/btnDesign"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_my_work_unselect"
-                android:fontFamily="@font/itim_regular"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="@string/design"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -119,7 +119,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/itim_regular"
                 android:text="@string/no_item_here"
-                android:textColor="@color/app_color"
+                android:textColor="#1E00A6"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -128,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="18dp"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingBottom="8dp"
@@ -157,11 +157,20 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_my_design" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_mycreate_telegram"
+            app:layout_constraintBottom_toBottomOf="@id/llBottom"
+            app:layout_constraintTop_toTopOf="@+id/layoutSticker" />
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/layoutSticker"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/llBottom">
@@ -219,16 +228,16 @@
                 <TextView
                     android:id="@+id/txtTelegram"
                     style="@style/single_marquee"
+                    android:freezesText="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="12dp"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:fontFamily="@font/roboto_regular"
-                    android:freezesText="true"
                     android:gravity="center"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
                     android:text="@string/add_to_telegram"
                     android:textColor="@color/white"
                     android:textSize="13sp" />
@@ -240,10 +249,7 @@
             android:id="@+id/llBottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:paddingTop="6dp"
             android:layout_marginHorizontal="8dp"
-            android:paddingBottom="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -252,9 +258,10 @@
             <LinearLayout
                 android:id="@+id/btnShareAll"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_btn_share"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -279,13 +286,13 @@
                     android:singleLine="true"
                     android:text="@string/share"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnDownload"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_share"
@@ -313,7 +320,7 @@
                     android:singleLine="true"
                     android:text="@string/download"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
