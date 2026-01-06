@@ -105,7 +105,7 @@ open class DrawView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     init {
         touchSlop = ViewConfiguration.get(context).scaledTouchSlop
         //quylh dùng hardware layer tối ưu hiệu suất vẽ
-//        setLayerType(LAYER_TYPE_HARDWARE, null)
+        setLayerType(LAYER_TYPE_HARDWARE, null)
         val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.StickerView)
         try {
             isShowIcons = typedArray.getBoolean(R.styleable.StickerView_showIcons, true)
