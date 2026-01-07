@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" >Pony OC: Avatar Maker</string>
+    <string name="app_name" >OC Maker: Avatar Maker V2</string>
 
     <string name="this_action_may_contain_advertising">Esta acción puede contener anuncios</string>
     <string name="language">Idioma</string>
@@ -99,4 +99,5 @@
     <string name="please_enter_your_package_name">¡Por favor ingresa tu nombre de paquete!</string>
     <string name="loading">Cargando</string>
     <string name="edit">Editar</string>
+    <string name="no_internet">Sin Internet</string>
 </resources>

@@ -23,12 +23,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/titleQuick"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/coda_extra_bold"
             android:gravity="center"
             android:text="@string/trending_custom"
+            android:singleLine="true"
+            style="@style/single_marquee"
+            android:freezesText="true"
+            android:layout_marginHorizontal="80dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:textColor="@color/app_color"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/imvBack"

@@ -22,21 +22,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:gravity="center"
+
+        <TextView
+            android:id="@+id/titleSetting"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/coda_extra_bold"
+            android:gravity="center"
             android:text="@string/settings"
+            android:singleLine="true"
+            style="@style/single_marquee"
+            android:freezesText="true"
+            android:layout_marginHorizontal="80dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:textColor="@color/app_color"
-            android:textSize="28sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/imvBack"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/imvBack"
-
-            />
-
+            app:layout_constraintVertical_bias="0.0" />
         <LinearLayout
             android:id="@+id/llLanguage"
             android:layout_width="match_parent"

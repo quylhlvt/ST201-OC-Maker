@@ -39,5 +39,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ST201 OC Maker"
+rootProject.name = "OC Maker Avatar Maker V2"
 include ':app'

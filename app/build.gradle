@@ -10,17 +10,17 @@ plugins {
 }
 
 android {
-    namespace 'com.oc.pony.ponymaker.create'
+    namespace 'com.oc.maker.create.avatar2'
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.oc.pony.ponymaker.create"
+        applicationId "com.oc.maker.create.avatar2"
         minSdk 24
         targetSdk 36
         versionCode 1
         versionName "1.0.0"
         def formattedDate = new Date().format('MM.dd.yyyy')
-        archivesBaseName = "Pony OC Avatar Maker_${versionName}_${formattedDate}"
+        archivesBaseName = "OC_Maker_Avatar_Maker_V2_${versionName}_${formattedDate}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

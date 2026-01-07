@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -41,10 +42,10 @@
 
                 <ImageView
                     android:id="@+id/btnClose"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_close_1"
+                    android:src="@drawable/ic_close_1_color"
                     app:tint="@color/app_color" />
             </RelativeLayout>
 

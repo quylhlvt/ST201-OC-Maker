@@ -1,4 +1,4 @@
-package com.oc.pony.ponymaker.create
+package com.oc.maker.create.avatar2
 
 import org.junit.Assert
 import org.junit.Test

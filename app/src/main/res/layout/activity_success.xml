@@ -104,6 +104,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
+                android:paddingHorizontal="12dp"
                 android:background="@drawable/bg_btn_share"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -113,21 +114,22 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_mywork_success" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:id="@+id/tvMyWork"
-                    style="@style/single_marquee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
-                    android:ellipsize="marquee"
                     android:fontFamily="@font/roboto_medium"
-                    android:marqueeRepeatLimit="3"
-                    android:maxWidth="120dp"
+                    android:maxWidth="100dp"
                     android:paddingTop="2dp"
-                    android:singleLine="true"
                     android:text="@string/my_creation"
                     android:textColor="@color/white"
+                    android:singleLine="true"
+                    style="@style/single_marquee"
+                    android:freezesText="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -139,6 +141,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_share"
                 android:gravity="center"
+                android:paddingHorizontal="12dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -156,7 +159,7 @@
                     android:ellipsize="marquee"
                     android:fontFamily="@font/roboto_medium"
                     android:marqueeRepeatLimit="3"
-                    android:maxWidth="120dp"
+                    android:maxWidth="100dp"
                     android:paddingTop="2dp"
                     android:singleLine="true"
                     android:text="@string/download"

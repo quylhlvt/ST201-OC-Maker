@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:id="@+id/main"
@@ -27,7 +24,7 @@
             android:id="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="50dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="358"
@@ -92,12 +89,12 @@
                 android:layout_weight="16" />
         </LinearLayout>
 
-        <com.oc.pony.ponymaker.create.custom.DrawView
+        <com.oc.maker.create.avatar2.custom.DrawView
             android:id="@+id/drawView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
             android:layerType="hardware"
+            android:layout_marginBottom="30dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
-        </com.oc.pony.ponymaker.create.custom.DrawView>
+        </com.oc.maker.create.avatar2.custom.DrawView>
         <ImageView
             android:id="@+id/navBottom"
             android:layout_width="match_parent"
@@ -255,7 +252,7 @@
                             app:strokeJoinStyle="miter"
                             android:id="@+id/txtTitle"
                             android:gravity="center"
-                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginHorizontal="0dp"
                             android:textSize="20dp"
                             android:textColor="@color/white"
                             android:fontFamily="@font/coda_extra_bold"
@@ -275,16 +272,18 @@
 
                         <TextView
                             android:id="@+id/txtContent"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:layout_marginTop="-30dp"
-                            android:textSize="16dp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:layout_marginHorizontal="36dp"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="-30dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
                             android:text="@string/wait_a_few_second"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/animationView"
@@ -304,13 +303,15 @@
                             android:layout_marginTop="15dp"
                             android:layout_width="0dp"
                             android:layout_height="36dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginBottom="20dp"
                             android:background="@drawable/bg_btn_rate"
                             android:gravity="center"
                             android:text="@string/no"
                             android:textColor="@color/white"
                             android:fontFamily="@font/roboto_medium"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintDimensionRatio="1.12:0.40"
+                            app:layout_constraintDimensionRatio="1.00:0.36"
                             app:layout_constraintEnd_toStartOf="@+id/btnYes"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/txtContent" />
@@ -324,8 +325,9 @@
                             android:gravity="center"
                             android:text="@string/tv_yes"
                             android:textColor="@color/white"
+                            android:layout_marginEnd="20dp"
                             android:fontFamily="@font/roboto_medium"
-                            app:layout_constraintDimensionRatio="1.12:0.40"
+                            app:layout_constraintDimensionRatio="1.00:0.36"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/btnNo"
                             app:layout_constraintTop_toTopOf="@+id/btnNo" />

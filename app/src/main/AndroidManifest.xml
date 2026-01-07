@@ -32,7 +32,7 @@
     </queries>
 
     <application
-        android:name="com.oc.pony.ponymaker.create.App"
+        android:name="com.oc.maker.create.avatar2.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -44,7 +44,7 @@
         android:theme="@style/Theme.ST195">
 
         <activity
-            android:name="com.oc.pony.ponymaker.create.ui.splash.SplashActivity"
+            android:name="com.oc.maker.create.avatar2.ui.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -74,7 +74,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.oc.pony.ponymaker.create.ui.view.ViewActivity"
+            android:name="com.oc.maker.create.avatar2.ui.view.ViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -112,7 +112,7 @@
         </provider>
         <provider
             android:name=".utils.share.whatsapp.StickerContentProvider"
-            android:authorities="com.oc.pony.ponymaker.create.utils.share.whatsapp.StickerContentProvider"
+            android:authorities="com.oc.maker.create.avatar2.utils.share.whatsapp.StickerContentProvider"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.whatsapp.sticker.READ" />
